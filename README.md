@@ -5,7 +5,12 @@
 
 User
 - id
-- roles | ENUM | Kollégista, Karbantartó, Adminisztrátor, Karbantartási vezetö
+
+Role
+-id
+-role | String
+
+(users_roles tábla many to many, entitásként nem jelenik meg)
 
 Issue
 - id | Integer | PK 
@@ -54,10 +59,11 @@ IssueType
 
 
 
-Facilities
+Facility
 - id | Integer
 - name | String
 - equipments | List<Equipment> | DBben az equipment oldalrol van relacio
+- issues | List<Issue> | DBben az issue oldalrol van relacio
 
 
 
@@ -76,3 +82,4 @@ Issue
 
 Kapcsolatok
 Egy a több kapcsolat az Issue és az Equipment között. (Egy problémához több eszköz is kapcsolódhat, de egy eszközöz egy probléma.)
+Több a több kapcsolat a User és a Role között

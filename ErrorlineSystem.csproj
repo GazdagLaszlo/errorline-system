@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>ErrorlineSystem</RootNamespace>
+
+    <GenerateTargetFrameworkAttribute>false</GenerateTargetFrameworkAttribute>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.DataContext\bin\Debug\net9.0\ErrorlineSystem.DataContext.deps.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.DataContext\bin\Debug\net9.0\ErrorlineSystem.DataContext.runtimeconfig.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.Services\obj\Debug\net9.0\ErrorlineSystem.Services.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.Services\obj\ErrorlineSystem.Services.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.Services\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.Services\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.DataContext\obj\Debug\net9.0\ErrorlineSystem.DataContext.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.DataContext\obj\ErrorlineSystem.DataContext.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.DataContext\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.DataContext\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="DataContext\obj\DataContext.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="DataContext\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="DataContext\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="Errorline.Services\obj\Errorline.Services.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Errorline.Services\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Errorline.Services\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.Services\bin\Debug\net9.0\ErrorlineSystem.Services.deps.json" />
+    <_ContentIncludedByDefault Remove="ErrorlineSystem.Services\bin\Debug\net9.0\ErrorlineSystem.Services.runtimeconfig.json" />
+  </ItemGroup>
+
+</Project>
