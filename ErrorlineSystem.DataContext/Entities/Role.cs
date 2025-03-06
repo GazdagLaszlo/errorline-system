@@ -1,4 +1,4 @@
-﻿namespace DataContext.Entities;
+﻿namespace ErrorlineSystem.DataContext.Entities;
 
 public class Role
 {
