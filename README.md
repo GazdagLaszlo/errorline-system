@@ -2,9 +2,13 @@
 
 ##Entitások
 
-
 User
 - id
+- name
+
+UserRole
+-userId
+-roleId
 
 Role
 -id
@@ -23,6 +27,8 @@ Issue
 - parentIssueId | Integer - FK | Csak Done state után vegallapotot lehet összefüzni
 - assignedId | FK, depends on the UserEntity primaryKey | pl.karbantartó
 - createDateTime | Timestamp
+- modifiedDateTime | Timestamp
+- modifiedBy | String
 - createdBy | String
 - equipments | List<Equipment> | DBben az equipment oldalrol van relacio
 - equipmentOrders | List<EquipmentOrder> | DBben az order oldalrol van relacio
