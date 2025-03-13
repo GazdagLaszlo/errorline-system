@@ -72,7 +72,7 @@ public class Issue
     /// Az ügyhöz tartozó komment
     /// </summary>    
     public string InternalComment { get; set; } // TODO: Ez lehetne mondjuk egy List<string> és akkor több komment lehetne 
-
+    // Legyen List, adhat visszajelzést a karbantartó és kollégista is.
     /// <summary>
     /// Korábbi feladatra való hivatkozás
     /// </summary>
@@ -82,7 +82,8 @@ public class Issue
     /// A feladat felelősének az azonosítója egy User-re mutat
     /// </summary>
     public int? AssignedId { get; set; } // TODO: Ez nem lehetne inkább egy User típus? és akkor idegen kulcs lenne
-
+    // Legyen User típus. Ha változik a User tábla, nem kell itt is frissíteni.
+    // Idegen kulcsra állítunk be megszorításokat, sokkal megbízhatóbb lesz a rendszer.
     /// <summary>
     /// A feladat létrehozásának időpontja
     /// </summary>
@@ -97,12 +98,14 @@ public class Issue
     /// Az utolsó módosító User
     /// </summary>
     public string ModifiedBy { get; set; } // TODO: Ez is lehetne idegen kulcs a User táblára
-
+    // Legyen User típus. Ha változik a User tábla, nem kell itt is frissíteni.
+    // Idegen kulcsra állítunk be megszorításokat, sokkal megbízhatóbb lesz a rendszer.
     /// <summary>
     /// A feladat bejelentőjének az azonosítója
     /// </summary>
     public string CreatedBy { get; set; } // TODO: Ez is lehetne idegen kulcs a User táblára
-
+    // Legyen User típus. Ha változik a User tábla, nem kell itt is frissíteni.
+    // Idegen kulcsra állítunk be megszorításokat, sokkal megbízhatóbb lesz a rendszer.
     /// <summary>
     /// A feladathoz szükséges eszközök listája
     /// </summary>
