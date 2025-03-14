@@ -15,7 +15,7 @@ builder.Services.AddScoped<IFacilityService, FacilityService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "NetpincerApp API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ErrorlineSystem API", Version = "v1" });
 });
 
 var app = builder.Build();
