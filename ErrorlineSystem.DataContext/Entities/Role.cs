@@ -1,4 +1,6 @@
-﻿namespace ErrorlineSystem.DataContext.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ErrorlineSystem.DataContext.Entities;
 
 public enum RoleType
 { 
@@ -8,7 +10,7 @@ public enum RoleType
     /// - Hibabejelentés módosítása
     /// - Visszajelzés javításról
     /// </summary>
-    Kollégista,
+    Resident,
 
     /// <summary>
     /// Jogosultságok
@@ -16,7 +18,7 @@ public enum RoleType
     /// - Hibák kijavításának visszaigazolása
     /// - Hiba kapcsán eszköz rendelése
     /// </summary>
-    Karbantartó,
+    MaintenanceWorker,
 
     /// <summary>
     /// Jogosultságok
@@ -26,18 +28,22 @@ public enum RoleType
     /// - Eszközrendelési igények leadása
     /// - Rendelési folyamat nyomon követése
     /// </summary>
-    KarbantartásiVezető,
+    MaintenanceManager,
 
     /// <summary>
     /// Jogosultságok
     /// - Új eszközök és hibatípusok hozzáadása
     /// - Felszereltségek hozzáadása és eltávolítása helyiségekre vonatkozóan
     /// </summary>
-    Adminisztrátor
+    Administrator
 }
 public class Role
 {
+    [Key]
     public int Id { get; set; }
-    public string Name { get; set; }
+    
+    [Required]
+    public RoleType Type { get; set; }
+    
     public List<User> Users { get; set; }
-}t
+}

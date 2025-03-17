@@ -3,6 +3,7 @@ using System;
 using ErrorlineSystem.DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErrorlineSystem.DataContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250311211611_Update issue")]
+    partial class Updateissue
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.2");
@@ -100,14 +103,15 @@ namespace ErrorlineSystem.DataContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AssignedIdId")
+                    b.Property<int?>("AssignedId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreateDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CreatedById")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -127,13 +131,14 @@ namespace ErrorlineSystem.DataContext.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ModifiedById")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("ModifiedBy")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("ModifiedDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("ParentIssueIdId")
+                    b.Property<int?>("ParentIssueId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("State")
@@ -141,15 +146,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssignedIdId");
-
-                    b.HasIndex("CreatedById");
-
                     b.HasIndex("FacilityId");
-
-                    b.HasIndex("ModifiedById");
-
-                    b.HasIndex("ParentIssueIdId");
 
                     b.ToTable("Issues");
                 });
@@ -160,8 +157,9 @@ namespace ErrorlineSystem.DataContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("INTEGER");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -178,18 +176,24 @@ namespace ErrorlineSystem.DataContext.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("RoleId")
-                        .HasColumnType("INTEGER");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("RolesId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("UsersId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("RoleUser");
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Equipment", b =>
@@ -232,54 +236,26 @@ namespace ErrorlineSystem.DataContext.Migrations
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Issue", b =>
                 {
-                    b.HasOne("ErrorlineSystem.DataContext.Entities.User", "AssignedId")
-                        .WithMany()
-                        .HasForeignKey("AssignedIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ErrorlineSystem.DataContext.Entities.User", "CreatedBy")
-                        .WithMany()
-                        .HasForeignKey("CreatedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ErrorlineSystem.DataContext.Entities.Facility", null)
                         .WithMany("Issues")
                         .HasForeignKey("FacilityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("ErrorlineSystem.DataContext.Entities.User", "ModifiedBy")
-                        .WithMany()
-                        .HasForeignKey("ModifiedById")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ErrorlineSystem.DataContext.Entities.Issue", "ParentIssueId")
-                        .WithMany()
-                        .HasForeignKey("ParentIssueIdId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AssignedId");
-
-                    b.Navigation("CreatedBy");
-
-                    b.Navigation("ModifiedBy");
-
-                    b.Navigation("ParentIssueId");
                 });
 
-            modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.User", b =>
+            modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("ErrorlineSystem.DataContext.Entities.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
+                    b.HasOne("ErrorlineSystem.DataContext.Entities.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Role");
+                    b.HasOne("ErrorlineSystem.DataContext.Entities.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Equipment", b =>
@@ -299,11 +275,6 @@ namespace ErrorlineSystem.DataContext.Migrations
                     b.Navigation("EquipmentOrders");
 
                     b.Navigation("Equipments");
-                });
-
-            modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Role", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

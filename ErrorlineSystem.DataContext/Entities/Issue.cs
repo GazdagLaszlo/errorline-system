@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ErrorlineSystem.DataContext.Entities;
 
@@ -41,6 +42,7 @@ public enum IssueState
 
 public class Issue
 {
+    [Key]
     public int Id { get; set; }
 
     /// <summary>
@@ -71,19 +73,20 @@ public class Issue
     /// <summary>
     /// Az ügyhöz tartozó komment
     /// </summary>    
-    public string InternalComment { get; set; } // TODO: Ez lehetne mondjuk egy List<string> és akkor több komment lehetne 
+    public string InternalComment { get; set; } // TODO: Ez lehetne mondjuk egy List<string> és akkor több komment lehetne
     // Legyen List, adhat visszajelzést a karbantartó és kollégista is.
+    // Roli: Én nem bonyolítanám, így is lesz elég tennivaló. Ha marad rá ido megcsináltjuk.
+
     /// <summary>
     /// Korábbi feladatra való hivatkozás
     /// </summary>
-    public int? ParentIssueId { get; set; }
+    public Issue ParentIssueId { get; set; }
 
     /// <summary>
     /// A feladat felelősének az azonosítója egy User-re mutat
     /// </summary>
-    public int? AssignedId { get; set; } // TODO: Ez nem lehetne inkább egy User típus? és akkor idegen kulcs lenne
-    // Legyen User típus. Ha változik a User tábla, nem kell itt is frissíteni.
-    // Idegen kulcsra állítunk be megszorításokat, sokkal megbízhatóbb lesz a rendszer.
+    public User AssignedId { get; set; }
+
     /// <summary>
     /// A feladat létrehozásának időpontja
     /// </summary>
@@ -97,15 +100,15 @@ public class Issue
     /// <summary>
     /// Az utolsó módosító User
     /// </summary>
-    public string ModifiedBy { get; set; } // TODO: Ez is lehetne idegen kulcs a User táblára
-    // Legyen User típus. Ha változik a User tábla, nem kell itt is frissíteni.
-    // Idegen kulcsra állítunk be megszorításokat, sokkal megbízhatóbb lesz a rendszer.
+    [Required]
+    public User ModifiedBy { get; set; }
+
     /// <summary>
     /// A feladat bejelentőjének az azonosítója
     /// </summary>
-    public string CreatedBy { get; set; } // TODO: Ez is lehetne idegen kulcs a User táblára
-    // Legyen User típus. Ha változik a User tábla, nem kell itt is frissíteni.
-    // Idegen kulcsra állítunk be megszorításokat, sokkal megbízhatóbb lesz a rendszer.
+    [Required]
+    public User CreatedBy { get; set; }
+
     /// <summary>
     /// A feladathoz szükséges eszközök listája
     /// </summary>

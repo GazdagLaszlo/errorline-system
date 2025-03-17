@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace ErrorlineSystem.DataContext.Entities;
 
 public class EquipmentOrder
 {
+    [Key]
     public int Id { get; set; }
     public Issue Issue { get; set; }
     public Equipment Equipment { get; set; }

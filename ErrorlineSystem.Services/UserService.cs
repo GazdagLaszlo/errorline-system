@@ -1,17 +1,17 @@
 ﻿using ErrorlineSystem.DataContext.Context;
-using ErrorlineSystem.DataContext.Entities;
+using ErrorlineSystem.DataContext.Dtos;
 
 namespace ErrorlineSystem.Services;
 
 public interface IUserService
 {
-    List<User> List();
+    List<UserDto> List();
 }
 
 public class UserService(AppDbContext context) : IUserService
 {
-    public List<User> List()
+    public List<UserDto> List()
     {
-        return context.Users.ToList();
+        return context.Users.ToList().ConvertAll(UserDto.FromEntity);
     }
 }
