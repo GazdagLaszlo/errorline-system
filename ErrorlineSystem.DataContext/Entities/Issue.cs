@@ -40,6 +40,9 @@ public enum IssueState
     Closed
 }
 
+/// <summary>
+/// A hibajegy osztálya
+/// </summary>
 public class Issue
 {
     [Key]
@@ -71,9 +74,9 @@ public class Issue
     public IssueState State { get; set; }
 
     /// <summary>
-    /// Az ügyhöz tartozó komment
+    /// Az ügyhöz tartozó kommentek
     /// </summary>    
-    public string InternalComment { get; set; } // TODO: Ez lehetne mondjuk egy List<string> és akkor több komment lehetne
+    public List<Comment> InternalComment { get; set; }
     // Legyen List, adhat visszajelzést a karbantartó és kollégista is.
     // Roli: Én nem bonyolítanám, így is lesz elég tennivaló. Ha marad rá ido megcsináltjuk.
 
