@@ -10,6 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Filename=errorlinedb.db"));
 
 builder.Services.AddScoped<IFacilityService, FacilityService>();
+builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 
 // Swagger configuration
 builder.Services.AddEndpointsApiExplorer();

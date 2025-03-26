@@ -83,7 +83,7 @@ public class Issue
     /// <summary>
     /// Korábbi feladatra való hivatkozás
     /// </summary>
-    public Issue ParentIssueId { get; set; }
+    public Issue? ParentIssue { get; set; }
 
     /// <summary>
     /// A feladat felelősének az azonosítója egy User-re mutat

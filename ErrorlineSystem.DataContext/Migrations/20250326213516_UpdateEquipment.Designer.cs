@@ -3,6 +3,7 @@ using System;
 using ErrorlineSystem.DataContext.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ErrorlineSystem.DataContext.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250326213516_UpdateEquipment")]
+    partial class UpdateEquipment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.2");
@@ -160,7 +163,7 @@ namespace ErrorlineSystem.DataContext.Migrations
                     b.Property<DateTime>("ModifiedDateTime")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("ParentIssueId")
+                    b.Property<int>("ParentIssueIdId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("State")
@@ -176,7 +179,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.HasIndex("ParentIssueId");
+                    b.HasIndex("ParentIssueIdId");
 
                     b.ToTable("Issues");
                 });
@@ -302,9 +305,11 @@ namespace ErrorlineSystem.DataContext.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ErrorlineSystem.DataContext.Entities.Issue", "ParentIssue")
+                    b.HasOne("ErrorlineSystem.DataContext.Entities.Issue", "ParentIssueId")
                         .WithMany()
-                        .HasForeignKey("ParentIssueId");
+                        .HasForeignKey("ParentIssueIdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("AssignedId");
 
@@ -312,7 +317,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.Navigation("ModifiedBy");
 
-                    b.Navigation("ParentIssue");
+                    b.Navigation("ParentIssueId");
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.User", b =>

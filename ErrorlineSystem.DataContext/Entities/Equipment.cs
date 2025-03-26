@@ -9,6 +9,7 @@ public class Equipment
     [Required]
     public String Name { get; set; }
     public Boolean IsInStock { get; set; }
+    public int Quantity { get; set; }
     [Required]
     public Issue Issue { get; set; }
     public Facility Facility { get; set; }
