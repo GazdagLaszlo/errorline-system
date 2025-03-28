@@ -9,7 +9,7 @@ public class EquipmentOrderDto
     public IssueDto Issue { get; set; }
     public EquipmentDto Equipment { get; set; }
     public int Quantity { get; set; }
-    public EquipmentOrder.EquipmentOrderState State { get; set; }
+    public string State { get; set; }
 }
 
 public class EquipmentOrderCreateDto
