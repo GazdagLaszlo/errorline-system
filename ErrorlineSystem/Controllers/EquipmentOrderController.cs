@@ -17,8 +17,12 @@ namespace ErrorlineSystem.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] EquipmentOrderCreateDto orderDto)
         {
+            /*
             var order = await _orderService.CreateOrderAsync(orderDto);
             return CreatedAtAction(nameof(TrackOrder), new { orderId = order.Id }, order);
+            */
+            var result = await _orderService.CreateOrderAsync(orderDto);
+            return Ok(result);
         }
 
         [HttpGet("{orderId}")]

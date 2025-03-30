@@ -12,7 +12,7 @@ public interface IEquipmentOrderService
 {
     Task<EquipmentOrderDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto);
     Task<EquipmentOrderDto> TrackOrderAsync(int orderId);
-    Task<IEnumerable<EquipmentOrderDto>> GetAllOrdersAsync();
+    Task<IList<EquipmentOrderDto>> GetAllOrdersAsync();
 }
 
 public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEquipmentOrderService
@@ -57,14 +57,14 @@ public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEqui
         
     }
 
-    public async Task<IEnumerable<EquipmentOrderDto>> GetAllOrdersAsync()
+    public async Task<IList<EquipmentOrderDto>> GetAllOrdersAsync()
     {
         var orders = await context.EquipmentOrders            
             .Include(o => o.Issue)
             .Include(o => o.Equipment)
             .ToListAsync();
 
-        return mapper.Map<IEnumerable<EquipmentOrderDto>>(orders);
+        return mapper.Map<IList<EquipmentOrderDto>>(orders);
     }
 
 }

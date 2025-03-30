@@ -9,10 +9,15 @@ namespace ErrorlineSystem.Services
         public AutoMapperProfile()
         {
             CreateMap<EquipmentOrder, EquipmentOrderDto>()
-                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State.ToString()));
+                .ForPath(dest => dest.State, opt => opt.MapFrom(src => src.State.ToString()));
             CreateMap<EquipmentOrderCreateDto, EquipmentOrder>();
             CreateMap<Issue, IssueDto>();
             CreateMap<Equipment, EquipmentDto>();
+
+            CreateMap<User, UserDto>()
+                .ForPath(dest => dest.RoleType, opt => opt.MapFrom(src => src.Role.Type));
+            CreateMap<UserCreateDto, User>()
+                .ForPath(dest => dest.Role.Type, opt => opt.MapFrom(src => src.RoleType));
         }
     }
 }

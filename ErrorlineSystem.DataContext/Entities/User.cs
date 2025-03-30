@@ -10,10 +10,9 @@ public class User
     
     [Required]
     public string Name { get; set; }
+    public string Email { get; set; }
     
     [Required, ForeignKey("RoleId")]
     public Role Role { get; set; }
-    
-    [Required]
-    public string Password { get; set; }
+    public string PasswordHash { get; set; }
 }

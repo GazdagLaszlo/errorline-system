@@ -12,6 +12,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite("Filena
 builder.Services.AddScoped<IFacilityService, FacilityService>();
 builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddScoped<IEquipmentOrderService, EquipmentOrderService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
