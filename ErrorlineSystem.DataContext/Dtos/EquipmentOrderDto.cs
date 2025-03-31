@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using ErrorlineSystem.DataContext.Entities;
+using static ErrorlineSystem.DataContext.Entities.EquipmentOrder;
 
 namespace ErrorlineSystem.DataContext.Dtos;
 
@@ -20,4 +21,13 @@ public class EquipmentOrderCreateDto
     public int EquipmentId { get; set; }
     [Required(ErrorMessage ="A mennyiséget kötelező megadni!")]
     public int Quantity { get; set; }
+}
+
+public class EquipmentOrderResponseDto
+{
+    public int Id { get; set; }
+    public int IssueId { get; set; }
+    public int EquipmentId { get; set; }
+    public int Quantity { get; set; }
+    public string State { get; set; }
 }

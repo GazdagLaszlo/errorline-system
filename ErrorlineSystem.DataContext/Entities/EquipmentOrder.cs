@@ -9,7 +9,7 @@ public class EquipmentOrder
     public Issue Issue { get; set; }
     public Equipment Equipment { get; set; }
     public int Quantity { get; set; }
-    public EquipmentOrderState State { get; set; }
+    public EquipmentOrderState State { get; set; } = EquipmentOrderState.Open;
     
     public enum EquipmentOrderState
     {

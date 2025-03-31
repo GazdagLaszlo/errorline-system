@@ -10,15 +10,15 @@ namespace ErrorlineSystem.Services;
 
 public interface IEquipmentOrderService
 {
-    Task<EquipmentOrderDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto);
-    Task<EquipmentOrderDto> TrackOrderAsync(int orderId);
-    Task<IList<EquipmentOrderDto>> GetAllOrdersAsync();
+    Task<EquipmentOrderResponseDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto);
+    Task<EquipmentOrderResponseDto> TrackOrderAsync(int orderId);
+    Task<IList<EquipmentOrderResponseDto>> GetAllOrdersAsync();
 }
 
 public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEquipmentOrderService
 {
-    public async Task<EquipmentOrderDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto)
-    {
+    public async Task<EquipmentOrderResponseDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto)
+    {             
         var issue = await context.Issues.FindAsync(equipmentOrderCreateDto.IssueId);
         if (issue == null)
         {
@@ -28,23 +28,19 @@ public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEqui
         if (equipment == null)
         {
             throw new Exception($"Equipment not found with Id: {equipmentOrderCreateDto.EquipmentId}!");
-        }        
+        }
 
-        var order = new EquipmentOrder
-        {
-            Issue = issue,
-            Equipment = equipment,
-            Quantity = equipmentOrderCreateDto.Quantity,
-            State = EquipmentOrderState.Open,
-        };
+        var order = mapper.Map<EquipmentOrder>(equipmentOrderCreateDto);
+        order.Issue = issue;
+        order.Equipment = equipment;
 
         await context.EquipmentOrders.AddAsync(order);
         await context.SaveChangesAsync();
 
-        return mapper.Map<EquipmentOrderDto>(order);
+        return mapper.Map<EquipmentOrderResponseDto>(order);
     }
     
-    public async Task<EquipmentOrderDto> TrackOrderAsync(int orderId)
+    public async Task<EquipmentOrderResponseDto> TrackOrderAsync(int orderId)
     {
         var order = await context.EquipmentOrders
             .FirstOrDefaultAsync(x => x.Id == orderId);
@@ -53,18 +49,21 @@ public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEqui
         {
             throw new KeyNotFoundException($"Order not found with Id: {orderId}");
         }
-        return mapper.Map<EquipmentOrderDto>(order);
-        
+
+        context.Entry(@order).Reference(x => x.Issue).Load();
+        context.Entry(@order).Reference(x => x.Equipment).Load();
+
+        return mapper.Map<EquipmentOrderResponseDto>(order);
     }
 
-    public async Task<IList<EquipmentOrderDto>> GetAllOrdersAsync()
+    public async Task<IList<EquipmentOrderResponseDto>> GetAllOrdersAsync()
     {
-        var orders = await context.EquipmentOrders            
-            .Include(o => o.Issue)
-            .Include(o => o.Equipment)
+        var orders = await context.EquipmentOrders
+            .Include(x=>x.Issue)
+            .Include(x => x.Equipment)
             .ToListAsync();
 
-        return mapper.Map<IList<EquipmentOrderDto>>(orders);
+        return mapper.Map<IList<EquipmentOrderResponseDto>>(orders);
     }
 
 }
