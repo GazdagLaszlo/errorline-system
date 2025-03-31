@@ -12,6 +12,7 @@ namespace ErrorlineSystem.DataContext.Context
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<EquipmentOrder> EquipmentOrders { get; set; }
         public DbSet<Comment> Comments{ get; set; }
+        public DbSet<IssueType> IssueTypes{ get; set; }
 
     }
 }

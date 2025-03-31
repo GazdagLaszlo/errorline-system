@@ -1,6 +1,10 @@
-#ErrorLine-system LRT
+# ErrorLine-system LRT
 
-##Entitások
+## Rendszer usecase
+
+![System design](./ErrorLine_System.png)
+
+## Entitások, Modellek
 
 User
 - id
@@ -78,12 +82,12 @@ Statusz atmenet leiras
 
 Issue
 
-    Open, (Felhasznalo modosithatja szabadon)
-    Blocked, (Eszkoz rendeles alatt, kiosztott feladat nem modosithato)
-    InProgress, (Beszereles folyamatban)
-    Fixed, (Beszereles megtortent)
-    Verified, (User response megtortent, innen mar csak closed lehet)
-    Closed
+- Open, (Felhasznalo modosithatja szabadon)
+- Blocked, (Eszkoz rendeles alatt, kiosztott feladat nem modosithato)
+- InProgress, (Beszereles folyamatban)
+- Fixed, (Beszereles megtortent)
+- Verified, (User response megtortent, innen mar csak closed lehet)
+- Closed
 
 
 Kapcsolatok

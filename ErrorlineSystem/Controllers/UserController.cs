@@ -1,5 +1,6 @@
 ﻿using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -14,6 +15,14 @@ public class UserController(IUserService userService) : ControllerBase
     {
         var order = await userService.GetAllUsers();
         return Ok(order);
+    }
+    
+    [HttpPost("login")]
+    [AllowAnonymous]
+    public async Task<IActionResult> Login([FromBody] UserLoginDto userDto)
+    {
+        var token = await userService.LoginAsync(userDto);
+        return Ok(new { Token = token });
     }
 
     [HttpPost]

@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ErrorlineSystem.DataContext.Entities;
 
@@ -61,7 +60,7 @@ public class Issue
     /// <summary>
     /// Az ügy típusának azonosítója
     /// </summary>
-    public int IssueTypeId { get; set; }
+    public IssueType IssueType { get; set; }
 
     /// <summary>
     /// 
