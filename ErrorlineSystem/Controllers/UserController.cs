@@ -8,9 +8,11 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+//[Authorize]
 public class UserController(IUserService userService) : ControllerBase
 {
     [HttpGet]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> GetAllUsers()
     {
         var order = await userService.GetAllUsers();
@@ -26,21 +28,24 @@ public class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> RegisterAsync([FromBody] UserCreateDto userCreateDto)
+    [AllowAnonymous]
+    public async Task<IActionResult> Register([FromBody] UserCreateDto userCreateDto)
     {
         var result = await userService.RegisterAsync(userCreateDto);
         return Ok(result);
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUserAsync(int id, [FromBody] UserCreateDto userCreateDto)
+    //[Authorize(Roles = "Administrator")]
+    public async Task<IActionResult> UpdateUser(int id, [FromBody] UserCreateDto userCreateDto)
     {
         var result = await userService.UpdateUserAsync(id, userCreateDto);
         return Ok(result);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteUserAsync(int id)
+    //[Authorize(Roles = "Administrator")]
+    public async Task<IActionResult> DeleteUser(int id)
     {
         await userService.DeleteUserAsync(id);
         return Ok();

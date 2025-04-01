@@ -3,7 +3,6 @@ using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.DataContext.Entities;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using static ErrorlineSystem.DataContext.Entities.EquipmentOrder;
 
 
 namespace ErrorlineSystem.Services;

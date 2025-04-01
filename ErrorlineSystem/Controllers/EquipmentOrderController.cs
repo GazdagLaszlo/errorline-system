@@ -1,11 +1,13 @@
 ﻿using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErrorlineSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    //[Authorize]
     public class EquipmentOrderController : ControllerBase
     {
         private readonly IEquipmentOrderService _orderService;
@@ -15,6 +17,7 @@ namespace ErrorlineSystem.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = "MaintenanceManager,MaintenanceWorker")]
         public async Task<IActionResult> CreateOrder([FromBody] EquipmentOrderCreateDto orderDto)
         {
             var result = await _orderService.CreateOrderAsync(orderDto);
@@ -22,6 +25,7 @@ namespace ErrorlineSystem.Controllers
         }
 
         [HttpGet("{orderId}")]
+        //[Authorize(Roles = "MaintenanceManager)]
         public async Task<IActionResult> TrackOrder(int orderId)
         {
             var order = await _orderService.TrackOrderAsync(orderId);
@@ -29,6 +33,7 @@ namespace ErrorlineSystem.Controllers
         }
 
         [HttpGet]
+        //[Authorize(Roles = "MaintenanceManager)]
         public async Task<IActionResult> GetAllOrders()
         {
             var order = await _orderService.GetAllOrdersAsync();

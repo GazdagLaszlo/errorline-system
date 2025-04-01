@@ -6,10 +6,12 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+//[Authorize]
 public class EquipmentController(IEquipmentService equipmentService) : ControllerBase
 {
         
     [HttpGet]
+    //[Authorize(Roles = "Administrator,MaintenanceManager,MaintenanceWorker")]
     public async Task<IActionResult> GetALl()
     {
         var result = await equipmentService.GetAllAsync();
@@ -17,6 +19,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpPost]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Create([FromBody] EquipmentCreateDto equipmentCreateDto)
     {
         var result = await equipmentService.CreateAsync(equipmentCreateDto);
@@ -24,6 +27,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpGet("{id:int}")]
+    //[Authorize(Roles = "Administrator,MaintenanceManager,MaintenanceWorker")]
     public async Task<IActionResult> Get(int id)
     {
         var result = await equipmentService.GetByIdAsync(id);
@@ -31,6 +35,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpPut("{id:int}")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Update(int id, [FromBody] EquipmentCreateDto equipmentUpdateDto)
     {
         await equipmentService.UpdateAsync(id, equipmentUpdateDto);
@@ -38,6 +43,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpDelete("{id:int}")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Delete(int id)
     {
         await equipmentService.DeleteAsync(id);

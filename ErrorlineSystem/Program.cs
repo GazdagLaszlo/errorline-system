@@ -18,6 +18,7 @@ builder.Services.AddScoped<IEquipmentService, EquipmentService>();
 builder.Services.AddScoped<IEquipmentOrderService, EquipmentOrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IIssueTypeService, IssueTypeService>();
+builder.Services.AddScoped<IMaintenanceManagerService, MaintenanceManagerService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
  
@@ -38,7 +39,13 @@ builder.Services
         };
     });
 
-
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdministratorPolicy", policy => policy.RequireRole("Administrator"));
+    options.AddPolicy("ResidentPolicy", policy => policy.RequireRole("Resident"));
+    options.AddPolicy("MaintenanceWorkerPolicy", policy => policy.RequireRole("MaintenanceWorker"));
+    options.AddPolicy("MaintenanceManagerPolicy", policy => policy.RequireRole("MaintenanceManager"));
+});
 
 // Swagger configuration
 builder.Services.AddEndpointsApiExplorer();

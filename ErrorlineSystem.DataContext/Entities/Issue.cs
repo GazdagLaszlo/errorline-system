@@ -87,7 +87,7 @@ public class Issue
     /// <summary>
     /// A feladat felelősének az azonosítója egy User-re mutat
     /// </summary>
-    public User AssignedId { get; set; }
+    public User? AssignedUser { get; set; }
 
     /// <summary>
     /// A feladat létrehozásának időpontja
@@ -103,7 +103,7 @@ public class Issue
     /// Az utolsó módosító User
     /// </summary>
     [Required]
-    public User ModifiedBy { get; set; }
+    public User? ModifiedBy { get; set; }
 
     /// <summary>
     /// A feladat bejelentőjének az azonosítója

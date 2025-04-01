@@ -21,7 +21,9 @@ namespace ErrorlineSystem.Services
             CreateMap<UserCreateDto, User>()
                 .ForPath(dest => dest.Role.Type, opt => opt.MapFrom(src => src.RoleType));
 
-            CreateMap<Issue, IssueDto>();
+            CreateMap<Issue, IssueDto>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.AssignedUser.Name))
+                .ForMember(dest => dest.ModifiedBy, opt => opt.MapFrom(src => src.ModifiedBy.Name));
             CreateMap<Equipment, EquipmentDto>();
         }
     }
