@@ -69,4 +69,10 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// </summary>
         public List<EquipmentOrder>? EquipmentOrders { get; set; } = new List<EquipmentOrder>(); // Kapcsolat az Order oldalon
     }
+
+    public class IssueAssignDto
+    {
+        public int IssueId { get; set; }
+        public string AssignedUser { get; set; }
+    }
 }

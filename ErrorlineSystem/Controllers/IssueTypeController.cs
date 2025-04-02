@@ -1,5 +1,6 @@
 using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErrorlineSystem.Controllers;
@@ -7,10 +8,12 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
+//[Authorize]
 public class IssueTypeController(IIssueTypeService IssueTypeService) : ControllerBase
 {
         
     [HttpGet]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> GetALl()
     {
         var result = await IssueTypeService.GetAllAsync();
@@ -18,6 +21,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpPost]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Create([FromBody] IssueTypeCreateDto issueTypeCreateDto)
     {
         var result = await IssueTypeService.CreateAsync(issueTypeCreateDto);
@@ -25,6 +29,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpGet("{id:int}")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Get(int id)
     {
         var result = await IssueTypeService.GetByIdAsync(id);
@@ -32,6 +37,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpPut("{id:int}")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Update(int id, [FromBody] IssueTypeCreateDto issueTypeCreateDto)
     {
         await IssueTypeService.UpdateAsync(id, issueTypeCreateDto);
@@ -39,6 +45,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpDelete("{id:int}")]
+    //[Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Delete(int id)
     {
         await IssueTypeService.DeleteAsync(id);
