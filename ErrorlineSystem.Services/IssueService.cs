@@ -34,12 +34,6 @@ namespace ErrorlineSystem.Services
         /// <param name="issueDto"> A módosult hibajegy adatait tartalmazó DTO objektum </param>
         Task<bool> ModifyIssueAsync(int id, IssueUpdateDto issueDto);
 
-        /// <summary>
-        /// Hibajegy hozzárendelése felhasználóhoz
-        /// </summary>
-        /// <param name="issueId"> Hibajegy ID-ja </param>
-        /// <param name="username"> A felhasználó neve </param>
-        Task IssueToUserAsync(int issueId, string username);
 
         /// <summary>
         /// Hibajegy státuszának módosítása
@@ -197,14 +191,6 @@ namespace ErrorlineSystem.Services
 
         }
 
-        public async Task IssueToUserAsync(int issueId, string username)
-        {
-            Issue issue = await context.Issues.FindAsync(issueId) ?? throw new KeyNotFoundException("A megadott hibajegy nem található!");
-            User user = await context.Users.FindAsync(username) ?? throw new KeyNotFoundException("A megadott felhasználónév nem található!");
-            issue.AssignedUser = user;
-            context.Issues.Update(issue);
-            await context.SaveChangesAsync();
-        }
 
         public async Task<bool> ModifyStateAsync(int issueId, IssueState state)
         {

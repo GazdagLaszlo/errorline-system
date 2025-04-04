@@ -261,5 +261,11 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// </summary>
         public int FacilityId { get; set; }
     }
+
+    public class IssueAssignDto
+    {
+        public int IssueId { get; set; }
+        public string AssignedUser { get; set; }
+    }
 }
 

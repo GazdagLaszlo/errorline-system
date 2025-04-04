@@ -9,8 +9,8 @@ namespace ErrorlineSystem.Services;
 public interface IMaintenanceManagerService
 {
     Task<IList<IssueDto>> GetOpenIssuesAsync();
-    Task<bool> UpdateIssueStateAsync(int issueId);
-    Task<Dictionary<int, int>> AssignIssueAsync();
+    Task<IssueDto> UpdateIssueStateAsync(int issueId, IssueState state);
+    Task<IssueAssignDto> AssignIssueAsync(int issueId, int assignedUserId);
 }
 public class MaintenanceManagerService(AppDbContext context, IMapper mapper) : IMaintenanceManagerService
 {
@@ -18,16 +18,48 @@ public class MaintenanceManagerService(AppDbContext context, IMapper mapper) : I
     {
         var issues = await context.Issues
             .Where(x => x.State == IssueState.Open)
+            .Include(x => x.AssignedUser)
+            .Include(x => x.ModifiedBy)
             .ToListAsync();
         return mapper.Map<IList<IssueDto>>(issues);
     }
-    public Task<Dictionary<int, int>> AssignIssueAsync()
+    public async Task<IssueAssignDto> AssignIssueAsync(int issueId, int assignedUserId)
     {
-        throw new NotImplementedException();
+        var issue = await context.Issues.FindAsync(issueId);
+        var user = await context.Users.FindAsync(assignedUserId);
+        if(issue == null)
+        {
+            throw new KeyNotFoundException($"Issue not found with id: {issueId}");
+        }
+        if (user == null)
+        {
+            throw new KeyNotFoundException($"User not found with id: {assignedUserId}");
+        }
+
+        if (issue.State == IssueState.Open) { 
+            issue.State = IssueState.InProgress;
+            issue.AssignedUser = user;
+            await context.SaveChangesAsync();
+        }
+
+        var response = new IssueAssignDto
+        {
+            IssueId = issueId,
+            AssignedUser = user.Name,
+        };
+        return response;
     }
 
-    public Task<bool> UpdateIssueStateAsync(int issueId)
+    public async Task<IssueDto> UpdateIssueStateAsync(int issueId, IssueState state)
     {
-        throw new NotImplementedException();
+        var issue = await context.Issues.FindAsync(issueId);
+        if (issue == null)
+        {
+            throw new KeyNotFoundException($"Issue not found with id: {issueId}");
+        }
+
+        issue.State = state;
+        await context.SaveChangesAsync();
+        return mapper.Map<IssueDto>(issue);
     }
 }
