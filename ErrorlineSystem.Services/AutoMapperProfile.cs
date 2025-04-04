@@ -21,10 +21,21 @@ namespace ErrorlineSystem.Services
             CreateMap<UserCreateDto, User>()
                 .ForPath(dest => dest.Role.Type, opt => opt.MapFrom(src => src.RoleType));
 
-            CreateMap<Issue, IssueDto>()
-                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.AssignedUser.Name))
-                .ForMember(dest => dest.ModifiedBy, opt => opt.MapFrom(src => src.ModifiedBy.Name));
-            CreateMap<Equipment, EquipmentDto>();
+            CreateMap<Issue, IssueResponseDto>()
+                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.AssignedUser != null ? src.AssignedUser.Name : "N/A"))
+                .ForMember(dest => dest.ModifierUserName, opt => opt.MapFrom(src => src.ModifiedBy != null ? src.ModifiedBy.Name : "N/A"))
+                .ForMember(dest => dest.ParentIssueId, opt => opt.MapFrom(src => src.ParentIssue.Id))
+                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State.ToString()))
+                .ForMember(dest => dest.FacilityName, opt => opt.MapFrom(src => src.Facility.Name))
+                .ReverseMap();
+
+
+            CreateMap<IssueType, IssueTypeDto>();
+            CreateMap<Equipment, EquipmentSearchListItemDto>();
+            CreateMap<Comment, CommentDto>()
+                .ForMember(dest => dest.Authorname, opt => opt.MapFrom(src => src.Author.Name != null ? src.Author.Name : "N/A"));
+            CreateMap<Facility, FacilityDto>();
+
         }
     }
 }

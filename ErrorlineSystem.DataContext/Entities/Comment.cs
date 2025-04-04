@@ -36,5 +36,7 @@ namespace ErrorlineSystem.DataContext.Entities
         /// Melyik ügyhöz tartozik a komment
         /// </summary>
         public Issue Issue { get; set; }
+
+        public int IssueId { get; set; } 
     }
 }

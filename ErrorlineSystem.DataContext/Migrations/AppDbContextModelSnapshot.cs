@@ -42,7 +42,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasIndex("IssueId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Equipment", b =>
@@ -80,7 +80,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasIndex("IssueId");
 
-                    b.ToTable("Equipments");
+                    b.ToTable("Equipments", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.EquipmentOrder", b =>
@@ -107,7 +107,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasIndex("IssueId");
 
-                    b.ToTable("EquipmentOrders");
+                    b.ToTable("EquipmentOrders", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Facility", b =>
@@ -122,7 +122,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Facilities");
+                    b.ToTable("Facilities", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Issue", b =>
@@ -180,7 +180,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasIndex("ParentIssueId");
 
-                    b.ToTable("Issues");
+                    b.ToTable("Issues", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.IssueType", b =>
@@ -195,7 +195,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IssueTypes");
+                    b.ToTable("IssueTypes", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Role", b =>
@@ -209,7 +209,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles");
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.User", b =>
@@ -237,7 +237,7 @@ namespace ErrorlineSystem.DataContext.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("ErrorlineSystem.DataContext.Entities.Comment", b =>

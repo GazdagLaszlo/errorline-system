@@ -19,6 +19,7 @@ builder.Services.AddScoped<IEquipmentOrderService, EquipmentOrderService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IIssueTypeService, IssueTypeService>();
 builder.Services.AddScoped<IMaintenanceManagerService, MaintenanceManagerService>();
+builder.Services.AddScoped<IIssueService, IssueService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
  

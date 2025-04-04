@@ -55,7 +55,7 @@ public class Issue
     /// <summary>
     /// Az ügyhöz tartozó intézmény azonosítója
     /// </summary>
-    public int FacilityId { get; set; }
+    public Facility Facility { get; set; }
 
     /// <summary>
     /// Az ügy típusának azonosítója
@@ -71,13 +71,6 @@ public class Issue
     /// Az ügy aktuális státusza
     /// </summary>
     public IssueState State { get; set; }
-
-    /// <summary>
-    /// Az ügyhöz tartozó kommentek
-    /// </summary>    
-    public List<Comment> InternalComment { get; set; }
-    // Legyen List, adhat visszajelzést a karbantartó és kollégista is.
-    // Roli: Én nem bonyolítanám, így is lesz elég tennivaló. Ha marad rá ido megcsináltjuk.
 
     /// <summary>
     /// Korábbi feladatra való hivatkozás
@@ -100,10 +93,17 @@ public class Issue
     public DateTime ModifiedDateTime { get; set; }
 
     /// <summary>
+    /// Az ügyhöz tartozó kommentek
+    /// </summary>    
+    public List<Comment> InternalComment { get; set; }
+    // Legyen List, adhat visszajelzést a karbantartó és kollégista is.
+    // Roli: Én nem bonyolítanám, így is lesz elég tennivaló. Ha marad rá ido megcsináltjuk.
+
+    /// <summary>
     /// Az utolsó módosító User
     /// </summary>
     [Required]
-    public User? ModifiedBy { get; set; }
+    public User ModifiedBy { get; set; }
 
     /// <summary>
     /// A feladat bejelentőjének az azonosítója
@@ -114,11 +114,11 @@ public class Issue
     /// <summary>
     /// A feladathoz szükséges eszközök listája
     /// </summary>
-    public List<Equipment> Equipments { get; set; } = new List<Equipment>(); // Kapcsolat az Equipment oldalon
+    public List<Equipment>? Equipments { get; set; } = new List<Equipment>(); // Kapcsolat az Equipment oldalon
 
     /// <summary>
     /// Azoknak az eszközöknek a listája, amik a feladathoz szükségesek, 
     /// de meg kell rendelni
     /// </summary>
-    public List<EquipmentOrder> EquipmentOrders { get; set; } = new List<EquipmentOrder>(); // Kapcsolat az Order oldalon
+    public List<EquipmentOrder>? EquipmentOrders { get; set; } = new List<EquipmentOrder>(); // Kapcsolat az Order oldalon
 }
