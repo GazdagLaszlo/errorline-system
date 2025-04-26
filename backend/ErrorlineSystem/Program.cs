@@ -34,8 +34,8 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://localhost:5091",
-            ValidAudience = "https://localhost:5091",
+            ValidIssuer = "https://localhost:8080",
+            ValidAudience = "https://localhost:8080",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("randomSztring12345_x2____randomSztring12345_x2")),
         };
     });
