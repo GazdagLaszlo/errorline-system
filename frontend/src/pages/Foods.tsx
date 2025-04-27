@@ -1,3 +1,4 @@
+/*
 import {useEffect, useState} from "react";
 import api from "../api/api.ts";
 import {IFood} from "../interfaces/IFood.ts";
@@ -44,4 +45,4 @@ const Foods = () => {
     </>
 }
 
-export default Foods;
+export default Foods;*/

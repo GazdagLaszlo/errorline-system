@@ -1,3 +1,4 @@
+/*
 import {Button, Card, Group, NativeSelect, NumberInput, TextInput} from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {useEffect, useState} from "react";
@@ -134,4 +135,4 @@ const CreateUpdateFoods = ({isCreate}: ICreateUpdateFoods) => {
     </>
 }
 
-export default CreateUpdateFoods;
+export default CreateUpdateFoods;*/

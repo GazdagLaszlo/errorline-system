@@ -1,8 +1,7 @@
 import Login from "../pages/Login.tsx";
 import ForgotPassword from "../pages/ForgotPassword.tsx";
 import Dashboard from "../pages/Dashboard.tsx";
-import Foods from "../pages/Foods.tsx";
-import CreateUpdateFoods from "../pages/CreateUpdateFoods.tsx";
+
 export const routes = [
     {
         path: "login",
