@@ -3,41 +3,37 @@ using ErrorlineSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ErrorlineSystem.Controllers
+namespace ErrorlineSystem.Controllers;
+
+[ApiController]
+[Route("api/[controller]/[action]")]
+//[Authorize]
+public class EquipmentOrderController(IEquipmentOrderService orderService) : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")]
-    //[Authorize]
-    public class EquipmentOrderController : ControllerBase
+    [HttpPost]
+    //[Authorize(Roles = "MaintenanceManager,MaintenanceWorker")]
+    [ProducesResponseType<EquipmentOrderResponseDto>(StatusCodes.Status200OK)]
+    public async Task<IActionResult> CreateOrder([FromBody] EquipmentOrderCreateDto orderDto)
     {
-        private readonly IEquipmentOrderService _orderService;
-        public EquipmentOrderController(IEquipmentOrderService orderService)
-        {
-            _orderService = orderService;
-        }
+        var result = await orderService.CreateOrderAsync(orderDto);
+        return Ok(result);
+    }
 
-        [HttpPost]
-        //[Authorize(Roles = "MaintenanceManager,MaintenanceWorker")]
-        public async Task<IActionResult> CreateOrder([FromBody] EquipmentOrderCreateDto orderDto)
-        {
-            var result = await _orderService.CreateOrderAsync(orderDto);
-            return Ok(result);
-        }
+    [HttpGet("{orderId}")]
+    //[Authorize(Roles = "MaintenanceManager)]
+    [ProducesResponseType<EquipmentOrderResponseDto>(StatusCodes.Status200OK)]
+    public async Task<IActionResult> TrackOrder(int orderId)
+    {
+        var order = await orderService.TrackOrderAsync(orderId);
+        return Ok(order);
+    }
 
-        [HttpGet("{orderId}")]
-        //[Authorize(Roles = "MaintenanceManager)]
-        public async Task<IActionResult> TrackOrder(int orderId)
-        {
-            var order = await _orderService.TrackOrderAsync(orderId);
-            return Ok(order);
-        }
-
-        [HttpGet]
-        //[Authorize(Roles = "MaintenanceManager)]
-        public async Task<IActionResult> GetAllOrders()
-        {
-            var order = await _orderService.GetAllOrdersAsync();
-            return Ok(order);
-        }
+    [HttpGet]
+    //[Authorize(Roles = "MaintenanceManager)]
+    [ProducesResponseType<IList<EquipmentOrderResponseDto>>(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllOrders()
+    {
+        var order = await orderService.GetAllOrdersAsync();
+        return Ok(order);
     }
 }

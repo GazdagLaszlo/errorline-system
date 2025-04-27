@@ -21,7 +21,7 @@ public interface IIssueTypeService
     /// <summary>
     /// Létrehoz egy új IssueTypeot.
     /// </summary>
-    Task<int> CreateAsync(IssueTypeCreateDto issueTypeCreateDto);
+    Task<IssueTypeDto> CreateAsync(IssueTypeCreateDto issueTypeCreateDto);
     
     /// <summary>
     /// Frissít egy meglévő IssueTypeot.
@@ -62,7 +62,7 @@ public class IssueTypeService(AppDbContext context) : IIssueTypeService
         };
     }
 
-    public async Task<int> CreateAsync(IssueTypeCreateDto issueTypeCreateDto)
+    public async Task<IssueTypeDto> CreateAsync(IssueTypeCreateDto issueTypeCreateDto)
     {
         var issueType = new IssueType()
         {
@@ -72,7 +72,11 @@ public class IssueTypeService(AppDbContext context) : IIssueTypeService
         await context.IssueTypes.AddAsync(issueType);
         await context.SaveChangesAsync();
         
-        return issueType.Id;
+        return new IssueTypeDto()
+        {
+            Id = @issueType.Id,
+            Name = @issueType.Name,
+        };
     }
 
     public async Task UpdateAsync(int issueTypeId, IssueTypeCreateDto issueTypeUpdateDto)

@@ -14,6 +14,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
         
     [HttpGet]
     //[Authorize(Roles = "Administrator")]
+    [ProducesResponseType<IEnumerable<IssueTypeDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetALl()
     {
         var result = await IssueTypeService.GetAllAsync();
@@ -22,6 +23,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     
     [HttpPost]
     //[Authorize(Roles = "Administrator")]
+    [ProducesResponseType<IssueTypeDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Create([FromBody] IssueTypeCreateDto issueTypeCreateDto)
     {
         var result = await IssueTypeService.CreateAsync(issueTypeCreateDto);
@@ -30,6 +32,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     
     [HttpGet("{id:int}")]
     //[Authorize(Roles = "Administrator")]
+    [ProducesResponseType<IssueTypeDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(int id)
     {
         var result = await IssueTypeService.GetByIdAsync(id);

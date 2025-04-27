@@ -13,6 +13,7 @@ public class UserController(IUserService userService) : ControllerBase
 {
     [HttpGet]
     //[Authorize(Roles = "Administrator")]
+    [ProducesResponseType<IEnumerable<UserDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllUsers()
     {
         var order = await userService.GetAllUsers();
@@ -21,14 +22,18 @@ public class UserController(IUserService userService) : ControllerBase
     
     [HttpPost("login")]
     [AllowAnonymous]
+    [ProducesResponseType<LoginResponse>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Login([FromBody] UserLoginDto userDto)
     {
-        var token = await userService.LoginAsync(userDto);
-        return Ok(new { Token = token });
+        return Ok(new LoginResponse
+        {
+            Token = await userService.LoginAsync(userDto)
+        });
     }
 
     [HttpPost]
     [AllowAnonymous]
+    [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Register([FromBody] UserCreateDto userCreateDto)
     {
         var result = await userService.RegisterAsync(userCreateDto);
@@ -37,6 +42,7 @@ public class UserController(IUserService userService) : ControllerBase
 
     [HttpPut]
     //[Authorize(Roles = "Administrator")]
+    [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateUser(int id, [FromBody] UserCreateDto userCreateDto)
     {
         var result = await userService.UpdateUserAsync(id, userCreateDto);

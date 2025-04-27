@@ -1,11 +1,12 @@
 {
-  "name": "netpincer-template",
+  "name": "errorline-system-template",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "generate": "openapi-generator-cli generate -i errorline-system-swagger.json -g typescript-axios -o generated-sources/openapi --additional-properties=ngVersion=6.1.7,npmName=restClient,supportsES6=true,npmVersion=6.9.0,withInterfaces=true",
+    "dev": "npm run generate && vite",
+    "build": "npm run generate && tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -13,7 +14,9 @@
     "@mantine/core": "7.12.2",
     "@mantine/form": "^7.17.2",
     "@mantine/hooks": "7.12.2",
+    "@openapitools/openapi-generator-cli": "^2.19.1",
     "@tabler/icons-react": "^3.31.0",
+    "axios": "^1.8.3",
     "jwt-decode": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

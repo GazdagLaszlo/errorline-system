@@ -1,14 +1,15 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {rem, Button, useMantineTheme} from "@mantine/core";
 import {
     IconUserCircle,
     IconLogout,
-    IconHome
+    IconHome, IconList
 } from "@tabler/icons-react";
 import classes from "./NavbarMinimalColored.module.css";
 import {useNavigate} from "react-router-dom";
 import {useMediaQuery} from "@mantine/hooks";
 import useAuth from "../../hooks/useAuth.tsx";
+import {AuthContext} from "../../context/AuthContext.tsx";
 
 interface NavbarLinkProps {
     icon: typeof IconHome;
@@ -41,13 +42,21 @@ export function NavbarMinimal({toggle}: any) {
     const isMobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
     const [active, setActive] = useState(0);
     const navigate = useNavigate();
-    const {logout} = useAuth();  
+    const {logout} = useAuth();
+    const {role} = useContext(AuthContext);
 
     const menuItems = [
         {
             icon: IconHome,
             label: "Kezdőlap",
             url: "dashboard",
+            roles: ['Admin', 'Chef', 'Courier', 'Customer']
+        },
+        {
+            icon: IconList,
+            label: "Ételek",
+            url: "foods",
+            roles: ['Admin']
         }
     ];
 
@@ -60,7 +69,7 @@ export function NavbarMinimal({toggle}: any) {
         setActive(menuItems.findIndex(m => location.pathname === m.url));
     }, [])
 
-    const links = menuItems
+    const links = menuItems.filter(item => item.roles.includes(role ?? ''))
         .map((link, index) => (
             <NavbarLink
                 color="app-color"
