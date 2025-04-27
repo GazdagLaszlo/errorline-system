@@ -12,5 +12,5 @@ RUN npm run build
 FROM nginx:alpine-slim
 COPY --from=build ./dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 81
+EXPOSE 8282
 CMD ["nginx", "-g", "daemon off;"]
