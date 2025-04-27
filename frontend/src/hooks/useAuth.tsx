@@ -10,9 +10,9 @@ const useAuth = () => {
 
     const login = (email: string, password: string) => {
         api.User.apiUserLoginLoginPost({email, password}).then((res) => {
-            setToken(res.data.token);
-            localStorage.setItem(tokenKeyName, res.data.token);
-            const decodedToken: never = jwtDecode(res.data.token);
+            setToken(res.data.token!);
+            localStorage.setItem(tokenKeyName, res.data.token!);
+            const decodedToken: never = jwtDecode(res.data.token!);
             const role = decodedToken['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
             setRole(role);
             localStorage.setItem(roleKeyName, role);

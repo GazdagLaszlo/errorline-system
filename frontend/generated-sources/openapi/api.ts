@@ -26,6 +26,49 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerM
 /**
  * 
  * @export
+ * @interface Comment
+ */
+export interface Comment {
+    /**
+     * 
+     * @type {number}
+     * @memberof Comment
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {User}
+     * @memberof Comment
+     */
+    'author': User;
+    /**
+     * 
+     * @type {string}
+     * @memberof Comment
+     */
+    'content'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Comment
+     */
+    'createdAt'?: string;
+    /**
+     * 
+     * @type {Issue}
+     * @memberof Comment
+     */
+    'issue': Issue;
+    /**
+     * 
+     * @type {number}
+     * @memberof Comment
+     */
+    'issueId'?: number;
+}
+/**
+ * 
+ * @export
  * @interface CommentDto
  */
 export interface CommentDto {
@@ -47,6 +90,67 @@ export interface CommentDto {
      * @memberof CommentDto
      */
     'createdAt'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Equipment
+ */
+export interface Equipment {
+    /**
+     * 
+     * @type {number}
+     * @memberof Equipment
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Equipment
+     */
+    'name': string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Equipment
+     */
+    'isInStock'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof Equipment
+     */
+    'quantity'?: number;
+    /**
+     * 
+     * @type {Issue}
+     * @memberof Equipment
+     */
+    'issue': Issue;
+    /**
+     * 
+     * @type {Facility}
+     * @memberof Equipment
+     */
+    'facility'?: Facility;
+    /**
+     * 
+     * @type {Array<EquipmentOrder>}
+     * @memberof Equipment
+     */
+    'equipmentOrders'?: Array<EquipmentOrder> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Equipment
+     */
+    'createDateTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Equipment
+     */
+    'createBy': string;
 }
 /**
  * 
@@ -82,6 +186,100 @@ export interface EquipmentCreateDto {
 /**
  * 
  * @export
+ * @interface EquipmentDto
+ */
+export interface EquipmentDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentDto
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EquipmentDto
+     */
+    'isInStock'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentDto
+     */
+    'quantity'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentDto
+     */
+    'issueId'?: number;
+    /**
+     * 
+     * @type {FacilityDto}
+     * @memberof EquipmentDto
+     */
+    'facility'?: FacilityDto;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentDto
+     */
+    'createDateTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentDto
+     */
+    'createBy'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface EquipmentOrder
+ */
+export interface EquipmentOrder {
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentOrder
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {Issue}
+     * @memberof EquipmentOrder
+     */
+    'issue'?: Issue;
+    /**
+     * 
+     * @type {Equipment}
+     * @memberof EquipmentOrder
+     */
+    'equipment'?: Equipment;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentOrder
+     */
+    'quantity'?: number;
+    /**
+     * 
+     * @type {EquipmentOrderState}
+     * @memberof EquipmentOrder
+     */
+    'state'?: EquipmentOrderState;
+}
+
+
+/**
+ * 
+ * @export
  * @interface EquipmentOrderCreateDto
  */
 export interface EquipmentOrderCreateDto {
@@ -103,6 +301,366 @@ export interface EquipmentOrderCreateDto {
      * @memberof EquipmentOrderCreateDto
      */
     'quantity': number;
+}
+/**
+ * 
+ * @export
+ * @interface EquipmentOrderResponseDto
+ */
+export interface EquipmentOrderResponseDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentOrderResponseDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentOrderResponseDto
+     */
+    'issueId'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentOrderResponseDto
+     */
+    'equipmentId'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentOrderResponseDto
+     */
+    'quantity'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentOrderResponseDto
+     */
+    'state'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @enum {number}
+ */
+
+export const EquipmentOrderState = {
+    NUMBER_0: 0,
+    NUMBER_1: 1,
+    NUMBER_2: 2
+} as const;
+
+export type EquipmentOrderState = typeof EquipmentOrderState[keyof typeof EquipmentOrderState];
+
+
+/**
+ * 
+ * @export
+ * @interface EquipmentSearchListItemDto
+ */
+export interface EquipmentSearchListItemDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'isInStock'?: boolean;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'quantity'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'issueId'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'facilityId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'createDateTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof EquipmentSearchListItemDto
+     */
+    'createBy'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface Facility
+ */
+export interface Facility {
+    /**
+     * 
+     * @type {number}
+     * @memberof Facility
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Facility
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {Array<Equipment>}
+     * @memberof Facility
+     */
+    'equipments'?: Array<Equipment> | null;
+    /**
+     * 
+     * @type {Array<Issue>}
+     * @memberof Facility
+     */
+    'issues'?: Array<Issue> | null;
+}
+/**
+ * 
+ * @export
+ * @interface FacilityDto
+ */
+export interface FacilityDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof FacilityDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof FacilityDto
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {Array<EquipmentDto>}
+     * @memberof FacilityDto
+     */
+    'equipments'?: Array<EquipmentDto> | null;
+    /**
+     * 
+     * @type {Array<IssueDto>}
+     * @memberof FacilityDto
+     */
+    'issues'?: Array<IssueDto> | null;
+}
+/**
+ * 
+ * @export
+ * @interface Issue
+ */
+export interface Issue {
+    /**
+     * 
+     * @type {number}
+     * @memberof Issue
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof Issue
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {Facility}
+     * @memberof Issue
+     */
+    'facility'?: Facility;
+    /**
+     * 
+     * @type {IssueType}
+     * @memberof Issue
+     */
+    'issueType'?: IssueType;
+    /**
+     * 
+     * @type {string}
+     * @memberof Issue
+     */
+    'item'?: string | null;
+    /**
+     * 
+     * @type {IssueState}
+     * @memberof Issue
+     */
+    'state'?: IssueState;
+    /**
+     * 
+     * @type {Issue}
+     * @memberof Issue
+     */
+    'parentIssue'?: Issue;
+    /**
+     * 
+     * @type {User}
+     * @memberof Issue
+     */
+    'assignedUser'?: User;
+    /**
+     * 
+     * @type {string}
+     * @memberof Issue
+     */
+    'createDateTime'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Issue
+     */
+    'modifiedDateTime'?: string;
+    /**
+     * 
+     * @type {Array<Comment>}
+     * @memberof Issue
+     */
+    'internalComment'?: Array<Comment> | null;
+    /**
+     * 
+     * @type {User}
+     * @memberof Issue
+     */
+    'modifiedBy': User;
+    /**
+     * 
+     * @type {User}
+     * @memberof Issue
+     */
+    'createdBy': User;
+    /**
+     * 
+     * @type {Array<Equipment>}
+     * @memberof Issue
+     */
+    'equipments'?: Array<Equipment> | null;
+    /**
+     * 
+     * @type {Array<EquipmentOrder>}
+     * @memberof Issue
+     */
+    'equipmentOrders'?: Array<EquipmentOrder> | null;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface IssueAssignDto
+ */
+export interface IssueAssignDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueAssignDto
+     */
+    'issueId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueAssignDto
+     */
+    'assignedUser'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface IssueDto
+ */
+export interface IssueDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueDto
+     */
+    'id'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueDto
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueDto
+     */
+    'issueTypeId'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueDto
+     */
+    'item'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueDto
+     */
+    'state'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueDto
+     */
+    'parentIssueId'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueDto
+     */
+    'username'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueDto
+     */
+    'modifierUserName'?: string | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof IssueDto
+     */
+    'equipments'?: Array<number> | null;
+    /**
+     * 
+     * @type {Array<number>}
+     * @memberof IssueDto
+     */
+    'equipmentOrders'?: Array<number> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueDto
+     */
+    'facilityId'?: number;
 }
 /**
  * 
@@ -180,6 +738,85 @@ export interface IssueRequestDto {
 /**
  * 
  * @export
+ * @interface IssueResponseDto
+ */
+export interface IssueResponseDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueResponseDto
+     */
+    'id'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueResponseDto
+     */
+    'description': string;
+    /**
+     * 
+     * @type {IssueTypeDto}
+     * @memberof IssueResponseDto
+     */
+    'issueType': IssueTypeDto;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueResponseDto
+     */
+    'item'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueResponseDto
+     */
+    'state'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueResponseDto
+     */
+    'parentIssueId'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueResponseDto
+     */
+    'username': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueResponseDto
+     */
+    'modifierUserName'?: string | null;
+    /**
+     * 
+     * @type {Array<EquipmentSearchListItemDto>}
+     * @memberof IssueResponseDto
+     */
+    'equipments'?: Array<EquipmentSearchListItemDto> | null;
+    /**
+     * 
+     * @type {Array<EquipmentOrderResponseDto>}
+     * @memberof IssueResponseDto
+     */
+    'equipmentOrders'?: Array<EquipmentOrderResponseDto> | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueResponseDto
+     */
+    'facilityName'?: string | null;
+    /**
+     * 
+     * @type {Array<CommentDto>}
+     * @memberof IssueResponseDto
+     */
+    'internalComment'?: Array<CommentDto> | null;
+}
+/**
+ * 
+ * @export
  * @enum {number}
  */
 
@@ -198,6 +835,31 @@ export type IssueState = typeof IssueState[keyof typeof IssueState];
 /**
  * 
  * @export
+ * @interface IssueType
+ */
+export interface IssueType {
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueType
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueType
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {Array<Issue>}
+     * @memberof IssueType
+     */
+    'issues'?: Array<Issue> | null;
+}
+/**
+ * 
+ * @export
  * @interface IssueTypeCreateDto
  */
 export interface IssueTypeCreateDto {
@@ -205,6 +867,25 @@ export interface IssueTypeCreateDto {
      * 
      * @type {string}
      * @memberof IssueTypeCreateDto
+     */
+    'name'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface IssueTypeDto
+ */
+export interface IssueTypeDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof IssueTypeDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof IssueTypeDto
      */
     'name'?: string | null;
 }
@@ -278,6 +959,46 @@ export interface IssueUpdateDto {
 /**
  * 
  * @export
+ * @interface LoginResponse
+ */
+export interface LoginResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof LoginResponse
+     */
+    'token'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface Role
+ */
+export interface Role {
+    /**
+     * 
+     * @type {number}
+     * @memberof Role
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {RoleType}
+     * @memberof Role
+     */
+    'type': RoleType;
+    /**
+     * 
+     * @type {Array<User>}
+     * @memberof Role
+     */
+    'users'?: Array<User> | null;
+}
+
+
+/**
+ * 
+ * @export
  * @enum {number}
  */
 
@@ -291,6 +1012,43 @@ export const RoleType = {
 export type RoleType = typeof RoleType[keyof typeof RoleType];
 
 
+/**
+ * 
+ * @export
+ * @interface User
+ */
+export interface User {
+    /**
+     * 
+     * @type {number}
+     * @memberof User
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'name': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'email'?: string | null;
+    /**
+     * 
+     * @type {Role}
+     * @memberof User
+     */
+    'role': Role;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    'passwordHash'?: string | null;
+}
 /**
  * 
  * @export
@@ -319,6 +1077,39 @@ export interface UserCreateDto {
      * 
      * @type {RoleType}
      * @memberof UserCreateDto
+     */
+    'roleType'?: RoleType;
+}
+
+
+/**
+ * 
+ * @export
+ * @interface UserDto
+ */
+export interface UserDto {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserDto
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'name'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDto
+     */
+    'email'?: string | null;
+    /**
+     * 
+     * @type {RoleType}
+     * @memberof UserDto
      */
     'roleType'?: RoleType;
 }
@@ -554,7 +1345,7 @@ export const EquipmentApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiEquipmentGetALlGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiEquipmentGetALlGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EquipmentSearchListItemDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiEquipmentGetALlGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EquipmentApi.apiEquipmentGetALlGet']?.[localVarOperationServerIndex]?.url;
@@ -566,7 +1357,7 @@ export const EquipmentApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiEquipmentGetIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiEquipmentGetIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EquipmentDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiEquipmentGetIdGet(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EquipmentApi.apiEquipmentGetIdGet']?.[localVarOperationServerIndex]?.url;
@@ -618,7 +1409,7 @@ export const EquipmentApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiEquipmentGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiEquipmentGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<EquipmentSearchListItemDto>> {
             return localVarFp.apiEquipmentGetALlGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -627,7 +1418,7 @@ export const EquipmentApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiEquipmentGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiEquipmentGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<EquipmentDto>> {
             return localVarFp.apiEquipmentGetIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -673,7 +1464,7 @@ export interface EquipmentApiInterface {
      * @throws {RequiredError}
      * @memberof EquipmentApiInterface
      */
-    apiEquipmentGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiEquipmentGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<EquipmentSearchListItemDto>>;
 
     /**
      * 
@@ -682,7 +1473,7 @@ export interface EquipmentApiInterface {
      * @throws {RequiredError}
      * @memberof EquipmentApiInterface
      */
-    apiEquipmentGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiEquipmentGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<Array<EquipmentDto>>;
 
     /**
      * 
@@ -878,7 +1669,7 @@ export const EquipmentOrderApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto?: EquipmentOrderCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto?: EquipmentOrderCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EquipmentOrderResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EquipmentOrderApi.apiEquipmentOrderCreateOrderPost']?.[localVarOperationServerIndex]?.url;
@@ -889,7 +1680,7 @@ export const EquipmentOrderApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiEquipmentOrderGetAllOrdersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiEquipmentOrderGetAllOrdersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<EquipmentOrderResponseDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiEquipmentOrderGetAllOrdersGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EquipmentOrderApi.apiEquipmentOrderGetAllOrdersGet']?.[localVarOperationServerIndex]?.url;
@@ -901,7 +1692,7 @@ export const EquipmentOrderApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiEquipmentOrderTrackOrderOrderIdGet(orderId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiEquipmentOrderTrackOrderOrderIdGet(orderId: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EquipmentOrderResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiEquipmentOrderTrackOrderOrderIdGet(orderId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['EquipmentOrderApi.apiEquipmentOrderTrackOrderOrderIdGet']?.[localVarOperationServerIndex]?.url;
@@ -923,7 +1714,7 @@ export const EquipmentOrderApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto?: EquipmentOrderCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto?: EquipmentOrderCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<EquipmentOrderResponseDto> {
             return localVarFp.apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -931,7 +1722,7 @@ export const EquipmentOrderApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiEquipmentOrderGetAllOrdersGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiEquipmentOrderGetAllOrdersGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<EquipmentOrderResponseDto>> {
             return localVarFp.apiEquipmentOrderGetAllOrdersGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -940,7 +1731,7 @@ export const EquipmentOrderApiFactory = function (configuration?: Configuration,
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiEquipmentOrderTrackOrderOrderIdGet(orderId: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiEquipmentOrderTrackOrderOrderIdGet(orderId: number, options?: RawAxiosRequestConfig): AxiosPromise<EquipmentOrderResponseDto> {
             return localVarFp.apiEquipmentOrderTrackOrderOrderIdGet(orderId, options).then((request) => request(axios, basePath));
         },
     };
@@ -959,7 +1750,7 @@ export interface EquipmentOrderApiInterface {
      * @throws {RequiredError}
      * @memberof EquipmentOrderApiInterface
      */
-    apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto?: EquipmentOrderCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiEquipmentOrderCreateOrderPost(equipmentOrderCreateDto?: EquipmentOrderCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<EquipmentOrderResponseDto>;
 
     /**
      * 
@@ -967,7 +1758,7 @@ export interface EquipmentOrderApiInterface {
      * @throws {RequiredError}
      * @memberof EquipmentOrderApiInterface
      */
-    apiEquipmentOrderGetAllOrdersGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiEquipmentOrderGetAllOrdersGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<EquipmentOrderResponseDto>>;
 
     /**
      * 
@@ -976,7 +1767,7 @@ export interface EquipmentOrderApiInterface {
      * @throws {RequiredError}
      * @memberof EquipmentOrderApiInterface
      */
-    apiEquipmentOrderTrackOrderOrderIdGet(orderId: number, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiEquipmentOrderTrackOrderOrderIdGet(orderId: number, options?: RawAxiosRequestConfig): AxiosPromise<EquipmentOrderResponseDto>;
 
 }
 
@@ -1072,7 +1863,7 @@ export const FacilityApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiFacilityListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiFacilityListGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Facility>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiFacilityListGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['FacilityApi.apiFacilityListGet']?.[localVarOperationServerIndex]?.url;
@@ -1093,7 +1884,7 @@ export const FacilityApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiFacilityListGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiFacilityListGet(options?: RawAxiosRequestConfig): AxiosPromise<Facility> {
             return localVarFp.apiFacilityListGet(options).then((request) => request(axios, basePath));
         },
     };
@@ -1111,7 +1902,7 @@ export interface FacilityApiInterface {
      * @throws {RequiredError}
      * @memberof FacilityApiInterface
      */
-    apiFacilityListGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiFacilityListGet(options?: RawAxiosRequestConfig): AxiosPromise<Facility>;
 
 }
 
@@ -1432,7 +2223,7 @@ export const IssueApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiIssueGetAllIssueGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiIssueGetAllIssueGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IssueResponseDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiIssueGetAllIssueGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IssueApi.apiIssueGetAllIssueGet']?.[localVarOperationServerIndex]?.url;
@@ -1444,7 +2235,7 @@ export const IssueApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiIssueGetIssueIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiIssueGetIssueIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueResponseDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiIssueGetIssueIdGet(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IssueApi.apiIssueGetIssueIdGet']?.[localVarOperationServerIndex]?.url;
@@ -1519,7 +2310,7 @@ export const IssueApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiIssueGetAllIssueGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiIssueGetAllIssueGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IssueResponseDto>> {
             return localVarFp.apiIssueGetAllIssueGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1528,7 +2319,7 @@ export const IssueApiFactory = function (configuration?: Configuration, basePath
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiIssueGetIssueIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiIssueGetIssueIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<IssueResponseDto> {
             return localVarFp.apiIssueGetIssueIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1594,7 +2385,7 @@ export interface IssueApiInterface {
      * @throws {RequiredError}
      * @memberof IssueApiInterface
      */
-    apiIssueGetAllIssueGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiIssueGetAllIssueGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IssueResponseDto>>;
 
     /**
      * 
@@ -1603,7 +2394,7 @@ export interface IssueApiInterface {
      * @throws {RequiredError}
      * @memberof IssueApiInterface
      */
-    apiIssueGetIssueIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiIssueGetIssueIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<IssueResponseDto>;
 
     /**
      * 
@@ -1903,7 +2694,7 @@ export const IssueTypeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiIssueTypeCreatePost(issueTypeCreateDto?: IssueTypeCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiIssueTypeCreatePost(issueTypeCreateDto?: IssueTypeCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueTypeDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiIssueTypeCreatePost(issueTypeCreateDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IssueTypeApi.apiIssueTypeCreatePost']?.[localVarOperationServerIndex]?.url;
@@ -1926,7 +2717,7 @@ export const IssueTypeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiIssueTypeGetALlGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiIssueTypeGetALlGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IssueTypeDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiIssueTypeGetALlGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IssueTypeApi.apiIssueTypeGetALlGet']?.[localVarOperationServerIndex]?.url;
@@ -1938,7 +2729,7 @@ export const IssueTypeApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiIssueTypeGetIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiIssueTypeGetIdGet(id: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueTypeDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiIssueTypeGetIdGet(id, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['IssueTypeApi.apiIssueTypeGetIdGet']?.[localVarOperationServerIndex]?.url;
@@ -1973,7 +2764,7 @@ export const IssueTypeApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiIssueTypeCreatePost(issueTypeCreateDto?: IssueTypeCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiIssueTypeCreatePost(issueTypeCreateDto?: IssueTypeCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<IssueTypeDto> {
             return localVarFp.apiIssueTypeCreatePost(issueTypeCreateDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1990,7 +2781,7 @@ export const IssueTypeApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiIssueTypeGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiIssueTypeGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IssueTypeDto>> {
             return localVarFp.apiIssueTypeGetALlGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1999,7 +2790,7 @@ export const IssueTypeApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiIssueTypeGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiIssueTypeGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<IssueTypeDto> {
             return localVarFp.apiIssueTypeGetIdGet(id, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2028,7 +2819,7 @@ export interface IssueTypeApiInterface {
      * @throws {RequiredError}
      * @memberof IssueTypeApiInterface
      */
-    apiIssueTypeCreatePost(issueTypeCreateDto?: IssueTypeCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiIssueTypeCreatePost(issueTypeCreateDto?: IssueTypeCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<IssueTypeDto>;
 
     /**
      * 
@@ -2045,7 +2836,7 @@ export interface IssueTypeApiInterface {
      * @throws {RequiredError}
      * @memberof IssueTypeApiInterface
      */
-    apiIssueTypeGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiIssueTypeGetALlGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IssueTypeDto>>;
 
     /**
      * 
@@ -2054,7 +2845,7 @@ export interface IssueTypeApiInterface {
      * @throws {RequiredError}
      * @memberof IssueTypeApiInterface
      */
-    apiIssueTypeGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiIssueTypeGetIdGet(id: number, options?: RawAxiosRequestConfig): AxiosPromise<IssueTypeDto>;
 
     /**
      * 
@@ -2263,7 +3054,7 @@ export const MaintenanceManagerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiMaintenanceManagerAssignIssuePost(issueId?: number, assignedUserId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiMaintenanceManagerAssignIssuePost(issueId?: number, assignedUserId?: number, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueAssignDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiMaintenanceManagerAssignIssuePost(issueId, assignedUserId, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MaintenanceManagerApi.apiMaintenanceManagerAssignIssuePost']?.[localVarOperationServerIndex]?.url;
@@ -2274,7 +3065,7 @@ export const MaintenanceManagerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiMaintenanceManagerGetOpenIssuesGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiMaintenanceManagerGetOpenIssuesGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IssueDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiMaintenanceManagerGetOpenIssuesGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MaintenanceManagerApi.apiMaintenanceManagerGetOpenIssuesGet']?.[localVarOperationServerIndex]?.url;
@@ -2287,7 +3078,7 @@ export const MaintenanceManagerApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiMaintenanceManagerUpdateIssueStatePut(issueId?: number, state?: IssueState, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiMaintenanceManagerUpdateIssueStatePut(issueId?: number, state?: IssueState, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IssueDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiMaintenanceManagerUpdateIssueStatePut(issueId, state, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['MaintenanceManagerApi.apiMaintenanceManagerUpdateIssueStatePut']?.[localVarOperationServerIndex]?.url;
@@ -2310,7 +3101,7 @@ export const MaintenanceManagerApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiMaintenanceManagerAssignIssuePost(issueId?: number, assignedUserId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiMaintenanceManagerAssignIssuePost(issueId?: number, assignedUserId?: number, options?: RawAxiosRequestConfig): AxiosPromise<IssueAssignDto> {
             return localVarFp.apiMaintenanceManagerAssignIssuePost(issueId, assignedUserId, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2318,7 +3109,7 @@ export const MaintenanceManagerApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiMaintenanceManagerGetOpenIssuesGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiMaintenanceManagerGetOpenIssuesGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IssueDto>> {
             return localVarFp.apiMaintenanceManagerGetOpenIssuesGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2328,7 +3119,7 @@ export const MaintenanceManagerApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiMaintenanceManagerUpdateIssueStatePut(issueId?: number, state?: IssueState, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiMaintenanceManagerUpdateIssueStatePut(issueId?: number, state?: IssueState, options?: RawAxiosRequestConfig): AxiosPromise<IssueDto> {
             return localVarFp.apiMaintenanceManagerUpdateIssueStatePut(issueId, state, options).then((request) => request(axios, basePath));
         },
     };
@@ -2348,7 +3139,7 @@ export interface MaintenanceManagerApiInterface {
      * @throws {RequiredError}
      * @memberof MaintenanceManagerApiInterface
      */
-    apiMaintenanceManagerAssignIssuePost(issueId?: number, assignedUserId?: number, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiMaintenanceManagerAssignIssuePost(issueId?: number, assignedUserId?: number, options?: RawAxiosRequestConfig): AxiosPromise<IssueAssignDto>;
 
     /**
      * 
@@ -2356,7 +3147,7 @@ export interface MaintenanceManagerApiInterface {
      * @throws {RequiredError}
      * @memberof MaintenanceManagerApiInterface
      */
-    apiMaintenanceManagerGetOpenIssuesGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiMaintenanceManagerGetOpenIssuesGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<IssueDto>>;
 
     /**
      * 
@@ -2366,7 +3157,7 @@ export interface MaintenanceManagerApiInterface {
      * @throws {RequiredError}
      * @memberof MaintenanceManagerApiInterface
      */
-    apiMaintenanceManagerUpdateIssueStatePut(issueId?: number, state?: IssueState, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiMaintenanceManagerUpdateIssueStatePut(issueId?: number, state?: IssueState, options?: RawAxiosRequestConfig): AxiosPromise<IssueDto>;
 
 }
 
@@ -2613,7 +3404,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiUserGetAllUsersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiUserGetAllUsersGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<UserDto>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiUserGetAllUsersGet(options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.apiUserGetAllUsersGet']?.[localVarOperationServerIndex]?.url;
@@ -2625,7 +3416,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LoginResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiUserLoginLoginPost(userLoginDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.apiUserLoginLoginPost']?.[localVarOperationServerIndex]?.url;
@@ -2637,7 +3428,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiUserRegisterPost(userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiUserRegisterPost(userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiUserRegisterPost(userCreateDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.apiUserRegisterPost']?.[localVarOperationServerIndex]?.url;
@@ -2650,7 +3441,7 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiUserUpdateUserPut(id?: number, userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async apiUserUpdateUserPut(id?: number, userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.apiUserUpdateUserPut(id, userCreateDto, options);
             const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
             const localVarOperationServerBasePath = operationServerMap['UserApi.apiUserUpdateUserPut']?.[localVarOperationServerIndex]?.url;
@@ -2680,7 +3471,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUserGetAllUsersGet(options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiUserGetAllUsersGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<UserDto>> {
             return localVarFp.apiUserGetAllUsersGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -2689,7 +3480,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse> {
             return localVarFp.apiUserLoginLoginPost(userLoginDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2698,7 +3489,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUserRegisterPost(userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiUserRegisterPost(userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<UserDto> {
             return localVarFp.apiUserRegisterPost(userCreateDto, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2708,7 +3499,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiUserUpdateUserPut(id?: number, userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void> {
+        apiUserUpdateUserPut(id?: number, userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<UserDto> {
             return localVarFp.apiUserUpdateUserPut(id, userCreateDto, options).then((request) => request(axios, basePath));
         },
     };
@@ -2735,7 +3526,7 @@ export interface UserApiInterface {
      * @throws {RequiredError}
      * @memberof UserApiInterface
      */
-    apiUserGetAllUsersGet(options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiUserGetAllUsersGet(options?: RawAxiosRequestConfig): AxiosPromise<Array<UserDto>>;
 
     /**
      * 
@@ -2744,7 +3535,7 @@ export interface UserApiInterface {
      * @throws {RequiredError}
      * @memberof UserApiInterface
      */
-    apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse>;
 
     /**
      * 
@@ -2753,7 +3544,7 @@ export interface UserApiInterface {
      * @throws {RequiredError}
      * @memberof UserApiInterface
      */
-    apiUserRegisterPost(userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiUserRegisterPost(userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<UserDto>;
 
     /**
      * 
@@ -2763,7 +3554,7 @@ export interface UserApiInterface {
      * @throws {RequiredError}
      * @memberof UserApiInterface
      */
-    apiUserUpdateUserPut(id?: number, userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<void>;
+    apiUserUpdateUserPut(id?: number, userCreateDto?: UserCreateDto, options?: RawAxiosRequestConfig): AxiosPromise<UserDto>;
 
 }
 

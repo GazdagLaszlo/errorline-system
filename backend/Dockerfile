@@ -13,5 +13,5 @@ WORKDIR /app
 COPY --from=build /app/out .
 COPY --from=build /usr/share/dotnet /usr/share/dotnet
 ENV ASPNETCORE_ENVIRONMENT=Development
-EXPOSE 8080
-CMD ["dotnet", "ErrorlineSystem.dll", "--urls=http://0.0.0.0:8080"]
+EXPOSE 5071
+CMD ["dotnet", "ErrorlineSystem.dll", "--urls=http://0.0.0.0:5071"]

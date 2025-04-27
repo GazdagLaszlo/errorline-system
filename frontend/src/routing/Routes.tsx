@@ -19,7 +19,7 @@ export const routes = [
         component: <Dashboard/>,
         isPrivate: true
     },
-    {
+/*    {
         path: "foods",
         component: <Foods/>,
         isPrivate: true
@@ -33,5 +33,5 @@ export const routes = [
         path: "foods/:id",
         component: <CreateUpdateFoods isCreate={false}/>,
         isPrivate: true
-    },
+    },*/
 ]

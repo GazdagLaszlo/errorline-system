@@ -2,70 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="add6c45b-1459-486a-b396-1e02cb41a213" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Context/AppDbContext.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/CommentDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/EquipmentDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/EquipmentOrderDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/FacilityDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/IssueDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/IssueTypeDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Dtos/UserDto.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/Comment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/Equipment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/EquipmentOrder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/Facility.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/Issue.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/IssueType.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/Role.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Entities/User.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/ErrorlineSystem.DataContext.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250306203024_Initial.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250306203024_Initial.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250311211611_Update issue.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250311211611_Update issue.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250317220043_Update 03-17.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250317220043_Update 03-17.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250322074426_AddComment.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250322074426_AddComment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250326213516_UpdateEquipment.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250326213516_UpdateEquipment.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250326222359_UpdateIssue.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250326222359_UpdateIssue.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250330125954_UserChanges.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250330125954_UserChanges.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250331194539_Update_Issue_IssueType.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250331194539_Update_Issue_IssueType.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250401084530_IssueChanges.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/20250401084530_IssueChanges.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.DataContext/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/AutoMapperProfile.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/EquipmentOrderService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/EquipmentService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/ErrorlineSystem.Services.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/FacilityService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/IssueService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/IssueTypeService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/MaintenanceManagerService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.Services/UserService.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/EquipmentController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/EquipmentOrderController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/FacilityController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/IssueController.cs.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/IssueTypeController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/MaintenanceManagerController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Controllers/UserController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/ErrorLine_System.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/ErrorlineSystem.csproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/ErrorlineSystem.http" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Program.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/Properties/launchSettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/appsettings.Development.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/appsettings.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/errorlinedb.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/global.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ErrorlineSystem/init.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/ErrorlineSystem.Services/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ErrorlineSystem.Services/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/ErrorlineSystem/ErrorlineSystem.http" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ErrorlineSystem/ErrorlineSystem.http" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/ErrorlineSystem/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ErrorlineSystem/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/ErrorlineSystem/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/ErrorlineSystem/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.env" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/errorline-system-swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/errorline-system-swagger.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/generated-sources/openapi/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/generated-sources/openapi/api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/hooks/useAuth.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/hooks/useAuth.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/routing/Routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routing/Routes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,35 +25,35 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "machacsr"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;machacsr&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:pemik-dev-lab/errorline-system.git",
-    "accountId": "ecfc132a-3513-49ad-b485-85fc08e68d7e"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:pemik-dev-lab/errorline-system.git&quot;,
+    &quot;accountId&quot;: &quot;ecfc132a-3513-49ad-b485-85fc08e68d7e&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 3
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="2wGLU7UV26pDCPDx9TW6NHalLUo" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -113,6 +63,7 @@
       <option name="presentableId" value="Default" />
       <updated>1745662976809</updated>
       <workItem from="1745662978357" duration="23000" />
+      <workItem from="1745756192726" duration="226000" />
     </task>
     <servers />
   </component>

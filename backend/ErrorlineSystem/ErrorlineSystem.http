@@ -1,4 +1,4 @@
-@ErrorlineSystem_HostAddress = http://localhost:8080
+@ErrorlineSystem_HostAddress = http://localhost:5071
 
 GET {{ErrorlineSystem_HostAddress}}/weatherforecast/
 Accept: application/json

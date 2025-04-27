@@ -1,4 +1,9 @@
-FROM node:23-alpine AS build
+FROM node:23 AS build
+
+RUN apt-get update \
+     && apt-get install default-jre -y \
+     && apt-get install default-jdk -y
+
 COPY package*.json .
 RUN npm install
 COPY . .

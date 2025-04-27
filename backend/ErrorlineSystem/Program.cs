@@ -34,8 +34,8 @@ builder.Services
             ValidateAudience = true,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer = "https://localhost:8080",
-            ValidAudience = "https://localhost:8080",
+            ValidIssuer = "https://localhost:5071",
+            ValidAudience = "https://localhost:5071",
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("randomSztring12345_x2____randomSztring12345_x2")),
         };
     });
@@ -46,6 +46,15 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ResidentPolicy", policy => policy.RequireRole("Resident"));
     options.AddPolicy("MaintenanceWorkerPolicy", policy => policy.RequireRole("MaintenanceWorker"));
     options.AddPolicy("MaintenanceManagerPolicy", policy => policy.RequireRole("MaintenanceManager"));
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy  =>
+        {
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+        });
 });
 
 // Swagger configuration
@@ -70,5 +79,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseCors();
 
 app.Run();
