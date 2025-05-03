@@ -8,11 +8,11 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize]
+[Authorize]
 public class MaintenanceManagerController(IMaintenanceManagerService maintenanceManagerService) : ControllerBase
 {
     [HttpGet]
-    //[Authorize(Roles = "MaintenanceManager")]
+    [Authorize(Roles = "MaintenanceManager")]
     [ProducesResponseType<IList<IssueDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetOpenIssues()
     {
@@ -22,7 +22,7 @@ public class MaintenanceManagerController(IMaintenanceManagerService maintenance
 
     
     [HttpPost]
-    //[Authorize(Roles = "MaintenanceManager")]
+    [Authorize(Roles = "MaintenanceManager")]
     [ProducesResponseType<IssueAssignDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> AssignIssue(int issueId, int assignedUserId)
     {
@@ -31,7 +31,7 @@ public class MaintenanceManagerController(IMaintenanceManagerService maintenance
     }
 
     [HttpPut]
-    //[Authorize(Roles = "MaintenanceManager")]
+    [Authorize(Roles = "MaintenanceManager")]
     [ProducesResponseType<IssueDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateIssueState(int issueId, IssueState state)
     {

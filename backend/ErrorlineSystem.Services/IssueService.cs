@@ -25,7 +25,7 @@ namespace ErrorlineSystem.Services
         /// Hibajegy felvétele
         /// </summary>
         /// <param name="issueDto"> A hibajegy adatait tartalmazó DTO objektum </param>
-        Task CreateIssueAsync(IssueRequestDto issueDto);
+        Task<IssueResponseDto> CreateIssueAsync(IssueRequestDto issueDto);
 
         /// <summary>
         /// Hibajegy módosítása
@@ -94,44 +94,39 @@ namespace ErrorlineSystem.Services
         }
 
 
-        public async Task CreateIssueAsync(IssueRequestDto issueDto)
+        public async Task<IssueResponseDto> CreateIssueAsync(IssueRequestDto issueDto)
         {
-            try
+            Issue issue = new Issue()
             {
-                Issue issue = new Issue()
-                {
-                    Description = issueDto.Description,
-                    Item = issueDto.Item,
-                    State = (IssueState)issueDto.State,
-                    CreateDateTime = DateTime.Now,
+                Description = issueDto.Description,
+                Item = issueDto.Item,
+                State = (IssueState)issueDto.State,
+                CreateDateTime = DateTime.Now,
 
-                };
-                issue.IssueType = await context.IssueTypes.FindAsync(issueDto.IssueTypeId) ?? throw new KeyNotFoundException("A megadott hibajegy típus nem található!");
-                issue.CreatedBy = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
-                issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
-                issue.ParentIssue = await context.Issues.FindAsync(issueDto.ParentIssueId);
-                issue.Facility = await context.Facilities.FindAsync(issueDto.FacilityId) ?? throw new KeyNotFoundException("A megadott telephely nem található");
-                issue.ModifiedBy = issue.CreatedBy;
-                foreach (int equipmentId in issueDto.Equipments)
-                {
-                    Equipment e = await context.Equipments.FindAsync(equipmentId) ?? throw new KeyNotFoundException("A megadott eszköz nem található!");
-                    issue.Equipments.Add(e);
-                }
-
-                foreach (int orderDtoId in issueDto.EquipmentOrders)
-                {
-                    EquipmentOrder orderDto = await context.EquipmentOrders.FindAsync(orderDtoId) ?? throw new KeyNotFoundException("A megadott rendelés nem található!");
-                    issue.EquipmentOrders.Add(orderDto);
-                }
-
-                context.Issues.Add(issue);
-                await context.SaveChangesAsync();
-            }
-            catch (Exception ex)
+            };
+            issue.IssueType = await context.IssueTypes.FindAsync(issueDto.IssueTypeId) ?? throw new KeyNotFoundException("A megadott hibajegy típus nem található!");
+            issue.CreatedBy = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+            issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+            issue.ParentIssue = await context.Issues.FindAsync(issueDto.ParentIssueId);
+            issue.Facility = await context.Facilities.FindAsync(issueDto.FacilityId) ?? throw new KeyNotFoundException("A megadott telephely nem található");
+            issue.ModifiedBy = issue.CreatedBy;
+            foreach (int equipmentId in issueDto.Equipments)
             {
-
-                Console.WriteLine(ex.Message);
+                Equipment e = await context.Equipments.FindAsync(equipmentId) ?? throw new KeyNotFoundException("A megadott eszköz nem található!");
+                issue.Equipments.Add(e);
             }
+
+            foreach (int orderDtoId in issueDto.EquipmentOrders)
+            {
+                EquipmentOrder orderDto = await context.EquipmentOrders.FindAsync(orderDtoId) ?? throw new KeyNotFoundException("A megadott rendelés nem található!");
+                issue.EquipmentOrders.Add(orderDto);
+            }
+
+            context.Issues.Add(issue);
+            await context.SaveChangesAsync();
+
+            return mapper.Map<IssueResponseDto>(issue);
+
 
         }
 

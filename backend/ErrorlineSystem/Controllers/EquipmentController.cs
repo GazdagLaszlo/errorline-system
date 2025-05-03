@@ -1,17 +1,18 @@
 using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
  
 namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize]
+[Authorize]
 public class EquipmentController(IEquipmentService equipmentService) : ControllerBase
 {
         
     [HttpGet]
-    //[Authorize(Roles = "Administrator,MaintenanceManager,MaintenanceWorker")]
+    [Authorize(Roles = "Administrator,MaintenanceManager,MaintenanceWorker")]
     [ProducesResponseType<IEnumerable<EquipmentSearchListItemDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetALl()
     {
@@ -20,7 +21,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpPost]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     // [ProducesResponseType<IEnumerable<EquipmentDto>>(StatusCodes.Status200OK)] FIXME return created dto or ID!
     public async Task<IActionResult> Create([FromBody] EquipmentCreateDto equipmentCreateDto)
     {
@@ -29,7 +30,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpGet("{id:int}")]
-    //[Authorize(Roles = "Administrator,MaintenanceManager,MaintenanceWorker")]
+    [Authorize(Roles = "Administrator,MaintenanceManager,MaintenanceWorker")]
     [ProducesResponseType<IEnumerable<EquipmentDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(int id)
     {
@@ -38,7 +39,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpPut("{id:int}")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     // [ProducesResponseType<IEnumerable<EquipmentSearchListItemDto>>(StatusCodes.Status200OK)] FIXME return updated dto!
     public async Task<IActionResult> Update(int id, [FromBody] EquipmentCreateDto equipmentUpdateDto)
     {
@@ -47,7 +48,7 @@ public class EquipmentController(IEquipmentService equipmentService) : Controlle
     }
     
     [HttpDelete("{id:int}")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Delete(int id)
     {
         await equipmentService.DeleteAsync(id);

@@ -8,12 +8,12 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize]
+[Authorize]
 public class IssueTypeController(IIssueTypeService IssueTypeService) : ControllerBase
 {
         
     [HttpGet]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     [ProducesResponseType<IEnumerable<IssueTypeDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetALl()
     {
@@ -22,7 +22,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpPost]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     [ProducesResponseType<IssueTypeDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Create([FromBody] IssueTypeCreateDto issueTypeCreateDto)
     {
@@ -31,7 +31,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpGet("{id:int}")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     [ProducesResponseType<IssueTypeDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> Get(int id)
     {
@@ -40,7 +40,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpPut("{id:int}")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Update(int id, [FromBody] IssueTypeCreateDto issueTypeCreateDto)
     {
         await IssueTypeService.UpdateAsync(id, issueTypeCreateDto);
@@ -48,7 +48,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
     }
     
     [HttpDelete("{id:int}")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> Delete(int id)
     {
         await IssueTypeService.DeleteAsync(id);

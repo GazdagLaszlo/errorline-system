@@ -1,12 +1,13 @@
 using ErrorlineSystem.DataContext.Entities;
 using ErrorlineSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize]
+[Authorize]
 public class FacilityController(IFacilityService facilityService) : ControllerBase
 {
     [HttpGet]

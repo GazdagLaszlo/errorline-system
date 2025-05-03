@@ -7,11 +7,11 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize]
+[Authorize]
 public class EquipmentOrderController(IEquipmentOrderService orderService) : ControllerBase
 {
     [HttpPost]
-    //[Authorize(Roles = "MaintenanceManager,MaintenanceWorker")]
+    [Authorize(Roles = "MaintenanceManager,MaintenanceWorker")]
     [ProducesResponseType<EquipmentOrderResponseDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateOrder([FromBody] EquipmentOrderCreateDto orderDto)
     {
@@ -20,7 +20,7 @@ public class EquipmentOrderController(IEquipmentOrderService orderService) : Con
     }
 
     [HttpGet("{orderId}")]
-    //[Authorize(Roles = "MaintenanceManager)]
+    [Authorize(Roles = "MaintenanceManager")]
     [ProducesResponseType<EquipmentOrderResponseDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> TrackOrder(int orderId)
     {
@@ -29,7 +29,7 @@ public class EquipmentOrderController(IEquipmentOrderService orderService) : Con
     }
 
     [HttpGet]
-    //[Authorize(Roles = "MaintenanceManager)]
+    [Authorize(Roles = "MaintenanceManager")]
     [ProducesResponseType<IList<EquipmentOrderResponseDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllOrders()
     {

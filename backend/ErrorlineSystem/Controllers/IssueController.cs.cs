@@ -1,6 +1,7 @@
 ﻿using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.DataContext.Entities;
 using ErrorlineSystem.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ErrorlineSystem.Controllers;
@@ -10,6 +11,7 @@ namespace ErrorlineSystem.Controllers;
 /// </summary>
 [Route("api/[controller]/[action]")]
 [ApiController]
+[Authorize]
 public class IssueController(IIssueService issueService) : ControllerBase
 {
     /// <summary>
@@ -41,11 +43,12 @@ public class IssueController(IIssueService issueService) : ControllerBase
     /// <param name="dto"> A hibajegy adatai </param>
     /// <returns> A művelet eredményéről üzenet </returns>
     [HttpPost]
-    // [ProducesResponseType<IssueResponseDto>(StatusCodes.Status200OK)] FIXME RETURN ISSUE OR ID!
+    [Authorize(Roles = "Resident")]
+    [ProducesResponseType<IssueResponseDto>(StatusCodes.Status200OK)] 
     public async Task<IActionResult> CreateIssue([FromBody] IssueRequestDto dto)
     {
-        issueService.CreateIssueAsync(dto);
-        return Ok("Sikeres végrehajtás");
+        IssueResponseDto response = await issueService.CreateIssueAsync(dto);
+        return Ok(response);
     }
 
     /// <summary>

@@ -8,11 +8,11 @@ namespace ErrorlineSystem.Controllers;
 
 [ApiController]
 [Route("api/[controller]/[action]")]
-//[Authorize]
+[Authorize]
 public class UserController(IUserService userService) : ControllerBase
 {
     [HttpGet]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     [ProducesResponseType<IEnumerable<UserDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllUsers()
     {
@@ -41,7 +41,7 @@ public class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpPut]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateUser(int id, [FromBody] UserCreateDto userCreateDto)
     {
@@ -50,7 +50,7 @@ public class UserController(IUserService userService) : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    //[Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator")]
     public async Task<IActionResult> DeleteUser(int id)
     {
         await userService.DeleteUserAsync(id);
