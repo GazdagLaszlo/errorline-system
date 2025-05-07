@@ -806,7 +806,7 @@ export interface IssueResponseDto {
      * @type {string}
      * @memberof IssueResponseDto
      */
-    'facilityName'?: string | null;
+    'facilityId'?: number | null;
     /**
      * 
      * @type {Array<CommentDto>}

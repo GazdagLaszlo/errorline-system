@@ -134,7 +134,7 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// Az ügyhöz tartozó intézmény azonosítója
         /// </summary>
-        public string FacilityName { get; set; }
+        public string FacilityId { get; set; }
 
         /// <summary>
         /// Az ügyhöz tartozó kommentek

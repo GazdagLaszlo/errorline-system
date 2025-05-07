@@ -50,13 +50,13 @@ export function NavbarMinimal({toggle}: any) {
             icon: IconHome,
             label: "Kezdőlap",
             url: "dashboard",
-            roles: ['Admin', 'Chef', 'Courier', 'Customer']
+            roles: []
         },
         {
             icon: IconList,
-            label: "Ételek",
-            url: "foods",
-            roles: ['Admin']
+            label: "Hibajegyek",
+            url: "issues",
+            roles: []
         }
     ];
 
@@ -69,7 +69,7 @@ export function NavbarMinimal({toggle}: any) {
         setActive(menuItems.findIndex(m => location.pathname === m.url));
     }, [])
 
-    const links = menuItems.filter(item => item.roles.includes(role ?? ''))
+    const links = menuItems.filter(item => item.roles.length === 0 || item.roles.includes(role ?? ''))
         .map((link, index) => (
             <NavbarLink
                 color="app-color"
