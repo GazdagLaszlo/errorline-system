@@ -447,7 +447,24 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssueResponseDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssueResponseDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IssueResponseDto"
+                }
+              }
+            }
           }
         }
       }
@@ -1736,8 +1753,8 @@
             },
             "nullable": true
           },
-          "facilityName": {
-            "type": "string",
+          "facilityId": {
+            "type": "integer",
             "nullable": true
           },
           "internalComment": {
@@ -1929,6 +1946,10 @@
             "type": "string",
             "nullable": true
           },
+          "roleId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "role": {
             "$ref": "#/components/schemas/Role"
           },
@@ -1962,7 +1983,8 @@
             "type": "string"
           },
           "roleType": {
-            "$ref": "#/components/schemas/RoleType"
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
@@ -2007,6 +2029,19 @@
         },
         "additionalProperties": false
       }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "Please insert JWT token",
+        "name": "Authorization",
+        "in": "header"
+      }
     }
-  }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
 }

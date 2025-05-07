@@ -11,7 +11,8 @@ namespace ErrorlineSystem.Services
         {
             CreateMap<EquipmentOrder, EquipmentOrderResponseDto>()
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State.ToString()))
-                .ForMember(dest => dest.EquipmentId, opt => opt.MapFrom(src => src.Equipment.Id))
+                .ForMember(dest => dest.EquipmentName, opt => opt.MapFrom(src => src.Equipment.Name))
+                .ForMember(dest => dest.IssueDescription, opt => opt.MapFrom(src => src.Issue.Description))
                 .ForMember(dest => dest.IssueId, opt => opt.MapFrom(src => src.Issue.Id));
             CreateMap<EquipmentOrderCreateDto, EquipmentOrder>();
             CreateMap<EquipmentOrder, EquipmentOrderDto>();

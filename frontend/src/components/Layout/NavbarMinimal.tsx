@@ -74,6 +74,7 @@ export function NavbarMinimal({toggle}: any) {
             url: "equipmentorder",
             roles: ['Administrator', 'MaintenanceWorker', 'MaintenanceManager']
         },
+        {
             icon: IconList,
             label: "Hibajegyek",
             url: "issues",

@@ -1,7 +1,7 @@
 export interface IEquipmentOrder {
     id?: number,
-    issueId?: number;
-    equipmentId?: number,
+    issueDescription?: string;
+    equipmentName?: string,
     quantity?: number,
     state?: string | null
 }

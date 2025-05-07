@@ -23,8 +23,8 @@ const EquipmentOrders = () => {
     
     const rows = orders.map((orders) => (
         <Table.Tr key={orders.id}>
-            <Table.Td>{orders.issueId}</Table.Td>
-            <Table.Td>{orders.equipmentId}</Table.Td>
+            <Table.Td>{orders.issueDescription}</Table.Td>
+            <Table.Td>{orders.equipmentName}</Table.Td>
             <Table.Td>{orders.quantity}</Table.Td>
             <Table.Td>{orders.state}</Table.Td>
             {/*<Table.Td><Button onClick={() => navigate(`${orders.id}`)}>Módosítás</Button></Table.Td>*/}
@@ -38,8 +38,8 @@ const EquipmentOrders = () => {
             <Table>
                 <Table.Thead>
                     <Table.Tr>
-                        <Table.Th>Hiba azonosító</Table.Th>
-                        <Table.Th>Eszköz azonosító</Table.Th>
+                        <Table.Th>Hiba leírása</Table.Th>
+                        <Table.Th>Eszköz neve</Table.Th>
                         <Table.Th>Mennyiség</Table.Th>
                         <Table.Th>Állapot</Table.Th>
                     </Table.Tr>
