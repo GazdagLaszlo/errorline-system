@@ -1,4 +1,5 @@
-﻿using ErrorlineSystem.DataContext.Dtos;
+﻿using System.Security.Claims;
+using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.DataContext.Entities;
 using ErrorlineSystem.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -14,6 +15,7 @@ namespace ErrorlineSystem.Controllers;
 [Authorize]
 public class IssueController(IIssueService issueService) : ControllerBase
 {
+    private int UserId => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
     /// <summary>
     /// A hibajegyek listázása
     /// </summary>
@@ -22,7 +24,7 @@ public class IssueController(IIssueService issueService) : ControllerBase
     [ProducesResponseType<IEnumerable<IssueResponseDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllIssue()
     {
-        return Ok(await issueService.ListAsync());
+        return Ok(await issueService.ListAsync(UserId));
     }
 
     /// <summary>
@@ -34,7 +36,7 @@ public class IssueController(IIssueService issueService) : ControllerBase
     [ProducesResponseType<IssueResponseDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetIssue(int id)
     {
-        return Ok(await issueService.GetIssueByIdAsync(id));
+        return Ok(await issueService.GetIssueByIdAsync(id, UserId));
     }
 
     /// <summary>
@@ -47,7 +49,7 @@ public class IssueController(IIssueService issueService) : ControllerBase
     [ProducesResponseType<IssueResponseDto>(StatusCodes.Status200OK)] 
     public async Task<IActionResult> CreateIssue([FromBody] IssueRequestDto dto)
     {
-        IssueResponseDto response = await issueService.CreateIssueAsync(dto);
+        IssueResponseDto response = await issueService.CreateIssueAsync(dto, UserId);
         return Ok(response);
     }
 
@@ -61,7 +63,7 @@ public class IssueController(IIssueService issueService) : ControllerBase
     public async Task<IActionResult> ModifyIssue(int id, [FromBody] IssueUpdateDto issueDto)
     {
 
-        bool result = await issueService.ModifyIssueAsync(id, issueDto);
+        bool result = await issueService.ModifyIssueAsync(id, issueDto, UserId);
         if (!result)
         {
             return BadRequest("Nem sikerült a hibajegy módosítása");
@@ -79,7 +81,7 @@ public class IssueController(IIssueService issueService) : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> ModifyIssueState(int id, [FromBody] IssueState state)
     {
-        bool result = await issueService.ModifyStateAsync(id, state);
+        bool result = await issueService.ModifyStateAsync(id, state, UserId);
         if (!result)
         {
             return BadRequest("Nem sikerült a státusz módosítása");

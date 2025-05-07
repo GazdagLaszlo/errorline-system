@@ -5,6 +5,7 @@ import UserCreate from "../pages/UserCreate.tsx";
 import EquipmentOrder from "../pages/EquipmentOrder.tsx";
 import Issues from "../pages/Issues.tsx";
 import CreateUpdateIssue from "../pages/CreateUpdateIssue.tsx";
+import ShowProfile from "../pages/profile/Profile.tsx";
 
 export const routes = [
     {
@@ -47,6 +48,11 @@ export const routes = [
     {
         path: "issues/:id",
         component: <CreateUpdateIssue isCreate={false}/>,
+        isPrivate: true
+    },
+    {
+        path: "profile",
+        component: <ShowProfile/>,
         isPrivate: true
     },
 /*    {

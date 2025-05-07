@@ -45,8 +45,8 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// A feladat felelősének az azonosítója egy User-re mutat
         /// </summary>
-        [Required(ErrorMessage = "A felhasználó megadása kötelező!")]
-        public string Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
+        //[Required(ErrorMessage = "A felhasználó megadása kötelező!")]
+        public string? Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
 
 
         /// <summary>
@@ -110,8 +110,8 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// A feladat felelősének az azonosítója egy User-re mutat
         /// </summary>
-        [Required(ErrorMessage = "A felhasználó megadása kötelező!")]
-        public string Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
+        //[Required(ErrorMessage = "A felhasználó megadása kötelező!")]
+        public string? Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
 
 
         /// <summary>
@@ -177,8 +177,8 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// A feladat felelősének az azonosítója egy User-re mutat
         /// </summary>
-        [Required(ErrorMessage = "A felhasználó megadása kötelező!")]
-        public string Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
+        //[Required(ErrorMessage = "A felhasználó megadása kötelező!")]
+        public string? Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
 
 
         /// <summary>

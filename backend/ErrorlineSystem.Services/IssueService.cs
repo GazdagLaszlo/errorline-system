@@ -12,27 +12,27 @@ namespace ErrorlineSystem.Services
         /// Összes hibajegy kilistázása
         /// </summary>
         /// <returns> A hibajegyek listája </returns>
-        Task<IEnumerable<IssueResponseDto>> ListAsync();
+        Task<IEnumerable<IssueResponseDto>> ListAsync(int userId);
 
         /// <summary>
         /// Hibajegy visszaadása ID alapján
         /// </summary>
         /// <param name="id"> A hibajegy ID-ja </param>        
         /// <returns> A keresett hibajegy </returns>
-        Task<IssueResponseDto> GetIssueByIdAsync(int id);
+        Task<IssueResponseDto> GetIssueByIdAsync(int id, int userId);
 
         /// <summary>
         /// Hibajegy felvétele
         /// </summary>
         /// <param name="issueDto"> A hibajegy adatait tartalmazó DTO objektum </param>
-        Task<IssueResponseDto> CreateIssueAsync(IssueRequestDto issueDto);
+        Task<IssueResponseDto> CreateIssueAsync(IssueRequestDto issueDto, int userId);
 
         /// <summary>
         /// Hibajegy módosítása
         /// </summary>
         /// <param name="id"> A hibajegy ID-ja </param>
         /// <param name="issueDto"> A módosult hibajegy adatait tartalmazó DTO objektum </param>
-        Task<bool> ModifyIssueAsync(int id, IssueUpdateDto issueDto);
+        Task<bool> ModifyIssueAsync(int id, IssueUpdateDto issueDto, int userId);
 
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace ErrorlineSystem.Services
         /// <param name="issueId"> A hibajegy ID-ja </param>
         /// <param name="state"> Az új státusz </param>
         /// <returns> A művelet sikeresen végrehajtódott-e</returns>
-        Task<bool> ModifyStateAsync(int issueId, IssueState state);
+        Task<bool> ModifyStateAsync(int issueId, IssueState state, int userId);
 
         /// <summary>
         /// Komment hozzáadása egy hibajegyhez
@@ -64,10 +64,11 @@ namespace ErrorlineSystem.Services
     public class IssueService(AppDbContext context, IMapper mapper) : IIssueService
     {
 
-        public async Task<IEnumerable<IssueResponseDto>> ListAsync()
+        public async Task<IEnumerable<IssueResponseDto>> ListAsync(int userId)
         {
             List<Issue> issues = await context.Issues
                 .Include(x => x.AssignedUser)
+                .Include(x => x.CreatedBy)
                 .Include(x => x.ModifiedBy)
                 .Include(x => x.Equipments)
                 .Include(x => x.EquipmentOrders)
@@ -75,10 +76,28 @@ namespace ErrorlineSystem.Services
                 .Include(x => x.Facility)
                 .Include(x => x.InternalComment)
                 .ToListAsync();
-            return mapper.Map<IEnumerable<IssueResponseDto>>(issues);
+            
+            var currentUser = context.Users
+                .Include(x => x.Role)
+                .FirstOrDefault(x => x.Id == userId);
+
+            if (currentUser == null)
+            {
+                throw new ApplicationException("User not found");
+            }
+
+            // Jogosultság alapján leszürjük a listát.
+            var resultList = currentUser.Role.Type switch
+            {
+                RoleType.Resident => issues.Where(issue => issue.CreatedBy.Id == currentUser.Id).ToList(),
+                RoleType.MaintenanceWorker => issues.Where(issue => issue.AssignedUser != null && issue.AssignedUser.Id == currentUser.Id).ToList(),
+                _ => issues
+            };
+
+            return mapper.Map<IEnumerable<IssueResponseDto>>(resultList);
         }
 
-        public async Task<IssueResponseDto> GetIssueByIdAsync(int id)
+        public async Task<IssueResponseDto> GetIssueByIdAsync(int id, int userId)
         {
             Issue? issue = await context.Issues
                 .Include(x => x.AssignedUser)
@@ -94,7 +113,7 @@ namespace ErrorlineSystem.Services
         }
 
 
-        public async Task<IssueResponseDto> CreateIssueAsync(IssueRequestDto issueDto)
+        public async Task<IssueResponseDto> CreateIssueAsync(IssueRequestDto issueDto, int userId)
         {
             Issue issue = new Issue()
             {
@@ -104,9 +123,22 @@ namespace ErrorlineSystem.Services
                 CreateDateTime = DateTime.Now,
 
             };
+            
+            var currentUser = context.Users
+                .Include(x => x.Role)
+                .FirstOrDefault(x => x.Id == userId);
+
+            if (currentUser == null)
+            {
+                throw new ApplicationException("User not found");
+            }
+            
             issue.IssueType = await context.IssueTypes.FindAsync(issueDto.IssueTypeId) ?? throw new KeyNotFoundException("A megadott hibajegy típus nem található!");
-            issue.CreatedBy = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
-            issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+            issue.CreatedBy = context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new KeyNotFoundException("A jelenlegi user nem található!");
+            if (issueDto.Username != null)
+            {
+                issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.Username)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+            }
             issue.ParentIssue = await context.Issues.FindAsync(issueDto.ParentIssueId);
             issue.Facility = await context.Facilities.FindAsync(issueDto.FacilityId) ?? throw new KeyNotFoundException("A megadott telephely nem található");
             issue.ModifiedBy = issue.CreatedBy;
@@ -130,7 +162,7 @@ namespace ErrorlineSystem.Services
 
         }
 
-        public async Task<bool> ModifyIssueAsync(int id, IssueUpdateDto issueDto)
+        public async Task<bool> ModifyIssueAsync(int id, IssueUpdateDto issueDto, int userId)
         {
             try
             {
@@ -154,8 +186,11 @@ namespace ErrorlineSystem.Services
                 issue.State = (IssueState)issueDto.State;
                 issue.ModifiedDateTime = DateTime.Now;
                 issue.IssueType = await context.IssueTypes.FindAsync(issueDto.IssueTypeId) ?? throw new KeyNotFoundException("A megadott hibajegy típus nem található!");
-                issue.ModifiedBy = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
-                issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.ModifierUserName)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+                issue.ModifiedBy = context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new KeyNotFoundException("A jelenlegi user nem található!");
+                if (issueDto.Username != null)
+                {
+                    issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.Username)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+                }
                 issue.ParentIssue = await context.Issues.FindAsync(issueDto.ParentIssueId);
                 issue.Facility = await context.Facilities.FindAsync(issueDto.FacilityId) ?? throw new KeyNotFoundException("A megadott telephely nem található");
 
@@ -187,11 +222,15 @@ namespace ErrorlineSystem.Services
         }
 
 
-        public async Task<bool> ModifyStateAsync(int issueId, IssueState state)
+        public async Task<bool> ModifyStateAsync(int issueId, IssueState state, int userId)
         {
             try
             {
                 Issue issue = await context.Issues.FindAsync(issueId) ?? throw new KeyNotFoundException("A megadott hibajegy nem található!");
+                
+                issue.ModifiedBy = context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new KeyNotFoundException("A jelenlegi user nem található!");
+                issue.ModifiedDateTime = DateTime.Now;
+                
                 issue.State = state;
                 await context.SaveChangesAsync();
                 return true;

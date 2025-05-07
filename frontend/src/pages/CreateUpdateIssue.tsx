@@ -17,24 +17,33 @@ interface ICreateUpdateIssue {
     isCreate: boolean;
 }
 
+type FormValues = {
+    description: string;
+    issueTypeId: string | null;
+    item: string;
+    state: string | null;
+    parentIssueId: string | null;
+    username: string | null;
+    modifierUserName: string | null;
+    equipments: number[] | null; // vagy number[] | null, ha teljesen üres is lehet
+    equipmentOrders: number[] | null;
+    facilityId: string | null;
+};
+
 const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
-    const form = useForm({
+    const form = useForm<FormValues>({
         mode: 'uncontrolled',
         initialValues: {
             description: "",
-            issueTypeId: 0,
+            issueTypeId: null,
             item: "",
-            state: 0,
-            parentIssueId: 0,
-            username: "",
-            modifierUserName: "",
-            equipments: [
-                0
-            ],
-            equipmentOrders: [
-                0
-            ],
-            facilityId: 0
+            state: null,
+            parentIssueId: null,
+            username: null,
+            modifierUserName: null,
+            equipments: [],
+            equipmentOrders: [],
+            facilityId: null
         },
 
         validate: {
@@ -58,15 +67,15 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
             api.Issue.apiIssueGetIssueIdGet(parseInt(id)).then(res => {
                 form.initialize({
                     description: res.data.description,
-                    issueTypeId: res.data.issueType?.id ?? 0,
+                    issueTypeId: res.data.issueType?.id?.toString() ?? "0",
                     item: res.data.item ?? "",
-                    state: parseInt(res.data.state ?? "0"),
-                    parentIssueId: 0,
-                    username: res.data.username,
-                    modifierUserName: "", // TODO: ezt meg kell oldani
+                    state: res.data.state ?? "0",
+                    parentIssueId: null,
+                    username: res.data.username, // assigned username (maitenence)
+                    modifierUserName: null,
                     equipments: (res.data.equipments ?? []).map(e => e.id!),
                     equipmentOrders: (res.data.equipmentOrders ?? []).map(o => o.id!),
-                    facilityId: res.data.facilityId ?? 0
+                    facilityId: res.data.facilityId?.toString() ?? "1"
                 });
             });
         }
@@ -74,16 +83,15 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
 
     const handleSubmit = (values: typeof form.values) => {
         const payload = {
-            description: values.description,
-            issueTypeId: values.issueTypeId,
-            item: values.item,
-            state: values.state,
-            parentIssueId: values.parentIssueId,
-            username: values.username,
-            modifierUserName: values.modifierUserName,
-            equipments: values.equipments,
-            equipmentOrders: values.equipmentOrders,
-            facilityId: values.facilityId
+            description: values.description!,
+            issueTypeId: Number(values.issueTypeId),
+            item: values.item!,
+            state: Number(values.state),
+            parentIssueId: values.parentIssueId ? Number(values.parentIssueId) : null,
+            username: values.username!, // assigned username (maitenence)
+            equipments: values.equipments!,
+            equipmentOrders: values.equipmentOrders!,
+            facilityId: Number(values.facilityId)
         };
 
         if (isCreate) {
@@ -95,7 +103,7 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
 
     return (
         <Card>
-            <form onSubmit={form.onSubmit(handleSubmit)}>
+            <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
 
                 <Textarea
                     withAsterisk
@@ -149,7 +157,7 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
 
                 <TextInput
                     withAsterisk
-                    label="Bejelentő felhasználónév"
+                    label="Hozzárendelt karbantartó felhasználónév"
                     key={form.key('username')}
                     {...form.getInputProps('username')}
                 />
@@ -157,6 +165,7 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
                 <TextInput
                     label="Módosító felhasználónév"
                     key={form.key('modifierUserName')}
+                    disabled
                     {...form.getInputProps('modifierUserName')}
                 />
 
@@ -208,7 +217,7 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
                     key={form.key('facilityId')}
                     {...form.getInputProps('facilityId')}
                     data={facilities.map(facility => ({
-                        value: String(facility.id),
+                        value: facility.id?.toString() ?? '',
                         label: facility.name ?? ''
                     }))}
                 />

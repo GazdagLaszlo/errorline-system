@@ -18,6 +18,7 @@ public interface IUserService
     Task<UserDto> UpdateUserAsync(int userId, UserCreateDto userDto);
     Task<IList<UserDto>> GetAllUsers();
     Task DeleteUserAsync(int userId);
+    Task<UserDto> Me(int userId);
 }
 
 public class UserService(AppDbContext context, IMapper mapper) : IUserService
@@ -118,5 +119,20 @@ public class UserService(AppDbContext context, IMapper mapper) : IUserService
         }
         context.Users.Remove(user);
         await context.SaveChangesAsync();
+    }
+
+    public async Task<UserDto> Me(int userId)
+    {
+        var user = await context.Users
+            .Where(user => user.Id == userId)
+            .Include(x => x.Role)
+            .FirstAsync();
+        
+        if (user == null)
+        {
+            throw new KeyNotFoundException($"User not found with id: {userId}");
+        }
+        
+        return mapper.Map<UserDto>(user);
     }
 }

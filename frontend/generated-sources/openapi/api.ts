@@ -3393,6 +3393,38 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUserMeGet: async (options: RawAxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/User/Me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            await setApiKeyToObject(localVarHeaderParameter, "Authorization", configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @param {UserCreateDto} [userCreateDto] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3515,6 +3547,17 @@ export const UserApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiUserMeGet(options?: RawAxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserDto>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.apiUserMeGet(options);
+            const localVarOperationServerIndex = configuration?.serverIndex ?? 0;
+            const localVarOperationServerBasePath = operationServerMap['UserApi.apiUserMeGet']?.[localVarOperationServerIndex]?.url;
+            return (axios, basePath) => createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration)(axios, localVarOperationServerBasePath || basePath);
+        },
+        /**
+         * 
          * @param {UserCreateDto} [userCreateDto] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3576,6 +3619,14 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiUserMeGet(options?: RawAxiosRequestConfig): AxiosPromise<UserDto> {
+            return localVarFp.apiUserMeGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {UserCreateDto} [userCreateDto] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -3627,6 +3678,14 @@ export interface UserApiInterface {
      * @memberof UserApiInterface
      */
     apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig): AxiosPromise<LoginResponse>;
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApiInterface
+     */
+    apiUserMeGet(options?: RawAxiosRequestConfig): AxiosPromise<UserDto>;
 
     /**
      * 
@@ -3686,6 +3745,16 @@ export class UserApi extends BaseAPI implements UserApiInterface {
      */
     public apiUserLoginLoginPost(userLoginDto?: UserLoginDto, options?: RawAxiosRequestConfig) {
         return UserApiFp(this.configuration).apiUserLoginLoginPost(userLoginDto, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public apiUserMeGet(options?: RawAxiosRequestConfig) {
+        return UserApiFp(this.configuration).apiUserMeGet(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
