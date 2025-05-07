@@ -3,6 +3,8 @@ import ForgotPassword from "../pages/ForgotPassword.tsx";
 import Dashboard from "../pages/Dashboard.tsx";
 import UserCreate from "../pages/UserCreate.tsx";
 import EquipmentOrder from "../pages/EquipmentOrder.tsx";
+import Issues from "../pages/Issues.tsx";
+import CreateUpdateIssue from "../pages/CreateUpdateIssue.tsx";
 
 export const routes = [
     {
@@ -30,6 +32,21 @@ export const routes = [
     {
         path: "usercreate",
         component: <UserCreate/>,
+        isPrivate: true
+    },
+    {
+        path: "issues",
+        component: <Issues/>,
+        isPrivate: true
+    },
+    {
+        path: "issues/create",
+        component: <CreateUpdateIssue isCreate={true}/>,
+        isPrivate: true
+    },
+    {
+        path: "issues/:id",
+        component: <CreateUpdateIssue isCreate={false}/>,
         isPrivate: true
     },
 /*    {

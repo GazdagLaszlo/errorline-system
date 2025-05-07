@@ -74,6 +74,11 @@ export function NavbarMinimal({toggle}: any) {
             url: "equipmentorder",
             roles: ['Administrator', 'MaintenanceWorker', 'MaintenanceManager']
         },
+            icon: IconList,
+            label: "Hibajegyek",
+            url: "issues",
+            roles: []
+        }
     ];
 
 
@@ -85,7 +90,7 @@ export function NavbarMinimal({toggle}: any) {
         setActive(menuItems.findIndex(m => location.pathname === m.url));
     }, [])
 
-    const links = menuItems.filter(item => item.roles.includes(role ?? ''))
+    const links = menuItems.filter(item => item.roles.length === 0 || item.roles.includes(role ?? ''))
         .map((link, index) => (
             <NavbarLink
                 color="app-color"

@@ -26,7 +26,6 @@ namespace ErrorlineSystem.Services
                 .ForMember(dest => dest.ModifierUserName, opt => opt.MapFrom(src => src.ModifiedBy != null ? src.ModifiedBy.Name : "N/A"))
                 .ForMember(dest => dest.ParentIssueId, opt => opt.MapFrom(src => src.ParentIssue.Id))
                 .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State.ToString()))
-                .ForMember(dest => dest.FacilityName, opt => opt.MapFrom(src => src.Facility.Name))
                 .ReverseMap();
 
 
