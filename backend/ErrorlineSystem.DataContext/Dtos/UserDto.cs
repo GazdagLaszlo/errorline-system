@@ -35,7 +35,7 @@ public class UserCreateDto
     [Required]
     [MinLength(8)]
     public string Password { get; set; }
-    public RoleType RoleType { get; set; }
+    public int RoleType { get; set; }
 }
 
 public class UserLoginDto

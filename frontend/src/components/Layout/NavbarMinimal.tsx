@@ -46,18 +46,34 @@ export function NavbarMinimal({toggle}: any) {
     const {role} = useContext(AuthContext);
 
     const menuItems = [
-        {
-            icon: IconHome,
-            label: "Kezdőlap",
-            url: "dashboard",
-            roles: ['Admin', 'Chef', 'Courier', 'Customer']
-        },
+        /*
         {
             icon: IconList,
             label: "Ételek",
             url: "foods",
             roles: ['Admin']
         }
+        */
+        {
+            icon: IconHome,
+            label: "Kezdőlap",
+            url: "dashboard",
+            roles: ['Resident','MaintenanceWorker','MaintenanceManager','Administrator']
+        },
+
+        {
+            icon: IconHome,
+            label: "Felhasználói fiók hozzáadása",
+            url: "usercreate",
+            roles: ['Administrator']
+        },
+
+        {
+            icon: IconHome,
+            label: "Eszközrendelések",
+            url: "equipmentorder",
+            roles: ['Administrator', 'MaintenanceWorker', 'MaintenanceManager']
+        },
     ];
 
 

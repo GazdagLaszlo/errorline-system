@@ -29,7 +29,7 @@ public class EquipmentOrderController(IEquipmentOrderService orderService) : Con
     }
 
     [HttpGet]
-    [Authorize(Roles = "MaintenanceManager")]
+    [Authorize(Roles = "MaintenanceManager,Administrator")]
     [ProducesResponseType<IList<EquipmentOrderResponseDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllOrders()
     {

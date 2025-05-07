@@ -1078,7 +1078,7 @@ export interface UserCreateDto {
      * @type {RoleType}
      * @memberof UserCreateDto
      */
-    'roleType'?: RoleType;
+    'roleType'?: number;
 }
 
 

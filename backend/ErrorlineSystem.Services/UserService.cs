@@ -83,12 +83,9 @@ public class UserService(AppDbContext context, IMapper mapper) : IUserService
         var user = mapper.Map<User>(userCreateDto);
         user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(userCreateDto.Password);
 
-        if (user.Role == null)
-        {
-            var residentRole = await context.Roles
-                .FirstOrDefaultAsync(x => x.Type == RoleType.Resident);
-            user.Role = residentRole;
-        }
+        var role = await context.Roles
+                .FirstOrDefaultAsync(x => x.Type == (RoleType)userCreateDto.RoleType);
+        user.Role = role;
 
         await context.Users.AddAsync(user);
         await context.SaveChangesAsync();

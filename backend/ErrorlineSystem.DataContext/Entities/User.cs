@@ -11,6 +11,7 @@ public class User
     [Required]
     public string Name { get; set; }
     public string Email { get; set; }
+    public int RoleId { get; set; }
     
     [Required, ForeignKey("RoleId")]
     public Role Role { get; set; }
