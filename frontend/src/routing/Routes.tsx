@@ -6,6 +6,7 @@ import EquipmentOrder from "../pages/EquipmentOrder.tsx";
 import Issues from "../pages/Issues.tsx";
 import CreateUpdateIssue from "../pages/CreateUpdateIssue.tsx";
 import CreateEquipmentOrder from "../pages/CreateEquipmentOrder.tsx";
+import ShowProfile from "../pages/profile/Profile.tsx";
 
 export const routes = [
     {
@@ -55,4 +56,9 @@ export const routes = [
         component: <CreateEquipmentOrder/>,
         isPrivate: true
     },
+    {
+        path: "profile",
+        component: <ShowProfile/>,
+        isPrivate: true
+    }
 ]
