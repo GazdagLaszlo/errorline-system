@@ -11,7 +11,7 @@ namespace ErrorlineSystem.Controllers;
 public class EquipmentOrderController(IEquipmentOrderService orderService) : ControllerBase
 {
     [HttpPost]
-    [Authorize(Roles = "MaintenanceManager,MaintenanceWorker")]
+    [Authorize(Roles = "MaintenanceManager,MaintenanceWorker,Administrator")]
     [ProducesResponseType<EquipmentOrderResponseDto>(StatusCodes.Status200OK)]
     public async Task<IActionResult> CreateOrder([FromBody] EquipmentOrderCreateDto orderDto)
     {

@@ -5,6 +5,7 @@ import UserCreate from "../pages/UserCreate.tsx";
 import EquipmentOrder from "../pages/EquipmentOrder.tsx";
 import Issues from "../pages/Issues.tsx";
 import CreateUpdateIssue from "../pages/CreateUpdateIssue.tsx";
+import CreateEquipmentOrder from "../pages/CreateEquipmentOrder.tsx";
 
 export const routes = [
     {
@@ -49,19 +50,9 @@ export const routes = [
         component: <CreateUpdateIssue isCreate={false}/>,
         isPrivate: true
     },
-/*    {
-        path: "foods",
-        component: <Foods/>,
+    {
+        path: "equipmentorder/create",
+        component: <CreateEquipmentOrder/>,
         isPrivate: true
     },
-    {
-        path: "foods/create",
-        component: <CreateUpdateFoods isCreate={true}/>,
-        isPrivate: true
-    },
-    {
-        path: "foods/:id",
-        component: <CreateUpdateFoods isCreate={false}/>,
-        isPrivate: true
-    },*/
 ]

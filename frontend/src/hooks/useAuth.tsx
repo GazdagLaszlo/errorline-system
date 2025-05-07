@@ -3,7 +3,6 @@ import {AuthContext} from "../context/AuthContext.tsx";
 import {emailKeyName, roleKeyName, tokenKeyName} from "../constants/constants.ts";
 import api from "../api/api.ts";
 import {jwtDecode} from "jwt-decode";
-//import { RoleType } from "../../generated-sources/openapi/api.ts";
 
 const useAuth = () => {
     const { token, setToken, email, setEmail, role, setRole  } = useContext(AuthContext);
@@ -25,7 +24,7 @@ const useAuth = () => {
     const register = (name: string, email: string, password: string, roleType: number) => {
         api.User.apiUserRegisterPost({ name, email, password, roleType})
             .then(() => alert("Sikeres regisztráció"))
-    };    
+    };
 
     const logout = () => {
         localStorage.clear();

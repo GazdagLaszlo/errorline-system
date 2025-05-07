@@ -6,13 +6,11 @@
         Select
     } from "@mantine/core";
     import {useForm} from "@mantine/form";
-    //import {useNavigate} from "react-router-dom";
     import useAuth from "../hooks/useAuth.tsx";
 
     const Register = () => {
 
-        const { register } = useAuth();
-        //const navigate = useNavigate();
+        const { register } = useAuth();        
 
         const form = useForm({
             initialValues: {
@@ -80,7 +78,7 @@
                         Létrehozás
                     </Button>
                 </form>
-            </div>            
+            </div>
         );
     };
         
