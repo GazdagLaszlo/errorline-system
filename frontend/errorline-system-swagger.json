@@ -978,6 +978,35 @@
         }
       }
     },
+    "/api/User/Me": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/User/Login/login": {
       "post": {
         "tags": [
@@ -1754,7 +1783,7 @@
             "nullable": true
           },
           "facilityId": {
-            "type": "integer",
+            "type": "string",
             "nullable": true
           },
           "internalComment": {

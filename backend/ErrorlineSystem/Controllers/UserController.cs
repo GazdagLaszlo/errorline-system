@@ -1,4 +1,5 @@
-﻿using ErrorlineSystem.DataContext.Dtos;
+﻿using System.Security.Claims;
+using ErrorlineSystem.DataContext.Dtos;
 using ErrorlineSystem.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,8 @@ namespace ErrorlineSystem.Controllers;
 [Authorize]
 public class UserController(IUserService userService) : ControllerBase
 {
+    private int UserId => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+    
     [HttpGet]
     [Authorize(Roles = "Administrator")]
     [ProducesResponseType<IEnumerable<UserDto>>(StatusCodes.Status200OK)]
@@ -18,6 +21,15 @@ public class UserController(IUserService userService) : ControllerBase
     {
         var order = await userService.GetAllUsers();
         return Ok(order);
+    }
+    
+    [HttpGet]
+    [Authorize]
+    [ProducesResponseType<UserDto>(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Me()
+    {
+        var me = await userService.Me(UserId);
+        return Ok(me);
     }
     
     [HttpPost("login")]
