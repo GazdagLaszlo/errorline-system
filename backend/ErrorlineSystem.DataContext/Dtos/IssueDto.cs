@@ -42,18 +42,6 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// </summary>
         public int? ParentIssueId { get; set; }
 
-        /// <summary>
-        /// A feladat felelősének az azonosítója egy User-re mutat
-        /// </summary>
-        //[Required(ErrorMessage = "A felhasználó megadása kötelező!")]
-        public string? Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
-
-
-        /// <summary>
-        /// Az utolsó módosító User
-        /// </summary>
-        public string? ModifierUserName { get; set; } // TODO: Itt is csak usenevet kapunk és mi keressük is az ID-t
-
 
         /// <summary>
         /// A feladathoz szükséges eszközök listája
@@ -100,7 +88,7 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// Az ügy aktuális státusza
         /// </summary>
-        public string State { get; set; }
+        public int State { get; set; }
 
         /// <summary>
         /// Korábbi feladatra való hivatkozás
@@ -111,7 +99,7 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// A feladat felelősének az azonosítója egy User-re mutat
         /// </summary>
         //[Required(ErrorMessage = "A felhasználó megadása kötelező!")]
-        public string? Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
+        public int? UserId { get; set; } 
 
 
         /// <summary>
@@ -178,7 +166,7 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// A feladat felelősének az azonosítója egy User-re mutat
         /// </summary>
         //[Required(ErrorMessage = "A felhasználó megadása kötelező!")]
-        public string? Username { get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
+        public int? UserId{ get; set; } // TODO: azért erre gondoltam, mert mi csak egy usernevet kapunk és az ID-t mi szedjük ki
 
 
         /// <summary>

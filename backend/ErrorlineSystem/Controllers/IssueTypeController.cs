@@ -13,7 +13,7 @@ public class IssueTypeController(IIssueTypeService IssueTypeService) : Controlle
 {
         
     [HttpGet]
-    [Authorize(Roles = "Administrator")]
+    [Authorize/*(Roles = "Administrator")*/]
     [ProducesResponseType<IEnumerable<IssueTypeDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetALl()
     {

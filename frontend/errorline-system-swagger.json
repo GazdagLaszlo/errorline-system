@@ -314,6 +314,55 @@
         }
       }
     },
+    "/api/EquipmentOrder/GetOrdersByIssueId/{issueId}": {
+      "get": {
+        "tags": [
+          "EquipmentOrder"
+        ],
+        "parameters": [
+          {
+            "name": "issueId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EquipmentOrderResponseDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EquipmentOrderResponseDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EquipmentOrderResponseDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/Facility/List": {
       "get": {
         "tags": [
@@ -1399,9 +1448,13 @@
             "type": "integer",
             "format": "int32"
           },
-          "equipmentId": {
-            "type": "integer",
-            "format": "int32"
+          "issueDescription": {
+            "type": "string",
+            "nullable": true
+          },
+          "equipmentName": {
+            "type": "string",
+            "nullable": true
           },
           "quantity": {
             "type": "integer",
@@ -1665,8 +1718,7 @@
       "IssueRequestDto": {
         "required": [
           "description",
-          "issueTypeId",
-          "username"
+          "issueTypeId"
         ],
         "type": "object",
         "properties": {
@@ -1696,14 +1748,6 @@
             "format": "int32",
             "nullable": true
           },
-          "username": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "modifierUserName": {
-            "type": "string",
-            "nullable": true
-          },
           "equipments": {
             "type": "array",
             "items": {
@@ -1730,8 +1774,7 @@
       "IssueResponseDto": {
         "required": [
           "description",
-          "issueType",
-          "username"
+          "issueType"
         ],
         "type": "object",
         "properties": {
@@ -1752,17 +1795,18 @@
             "nullable": true
           },
           "state": {
-            "type": "string",
-            "nullable": true
+            "type": "integer",
+            "format": "int32"
           },
           "parentIssueId": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "username": {
-            "minLength": 1,
-            "type": "string"
+          "userId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "modifierUserName": {
             "type": "string",
@@ -1856,8 +1900,7 @@
       "IssueUpdateDto": {
         "required": [
           "description",
-          "issueTypeId",
-          "username"
+          "issueTypeId"
         ],
         "type": "object",
         "properties": {
@@ -1882,9 +1925,10 @@
             "format": "int32",
             "nullable": true
           },
-          "username": {
-            "minLength": 1,
-            "type": "string"
+          "userId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
           },
           "modifierUserName": {
             "type": "string",

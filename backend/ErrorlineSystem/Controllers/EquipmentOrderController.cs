@@ -36,4 +36,13 @@ public class EquipmentOrderController(IEquipmentOrderService orderService) : Con
         var order = await orderService.GetAllOrdersAsync();
         return Ok(order);
     }
+
+    [HttpGet("{issueId}")]
+    [Authorize]
+    [ProducesResponseType<IList<EquipmentOrderResponseDto>>(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetOrdersByIssueId(int issueId)
+    {
+        var order = await orderService.GetOrdersByIssueIdAsync(issueId);
+        return Ok(order);
+    }
 }

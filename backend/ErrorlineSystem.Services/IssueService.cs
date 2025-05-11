@@ -134,11 +134,7 @@ namespace ErrorlineSystem.Services
             }
             
             issue.IssueType = await context.IssueTypes.FindAsync(issueDto.IssueTypeId) ?? throw new KeyNotFoundException("A megadott hibajegy típus nem található!");
-            issue.CreatedBy = context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new KeyNotFoundException("A jelenlegi user nem található!");
-            if (issueDto.Username != null)
-            {
-                issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.Username)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
-            }
+            issue.CreatedBy = context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new KeyNotFoundException("A jelenlegi user nem található!");            
             issue.ParentIssue = await context.Issues.FindAsync(issueDto.ParentIssueId);
             issue.Facility = await context.Facilities.FindAsync(issueDto.FacilityId) ?? throw new KeyNotFoundException("A megadott telephely nem található");
             issue.ModifiedBy = issue.CreatedBy;
@@ -187,9 +183,9 @@ namespace ErrorlineSystem.Services
                 issue.ModifiedDateTime = DateTime.Now;
                 issue.IssueType = await context.IssueTypes.FindAsync(issueDto.IssueTypeId) ?? throw new KeyNotFoundException("A megadott hibajegy típus nem található!");
                 issue.ModifiedBy = context.Users.FirstOrDefault(x => x.Id == userId) ?? throw new KeyNotFoundException("A jelenlegi user nem található!");
-                if (issueDto.Username != null)
+                if (issueDto.UserId != null)
                 {
-                    issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Name.Equals(issueDto.Username)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
+                    issue.AssignedUser = await context.Users.FirstOrDefaultAsync(x => x.Id.Equals(issueDto.UserId)) ?? throw new KeyNotFoundException("A megadott felhasználó nem található!");
                 }
                 issue.ParentIssue = await context.Issues.FindAsync(issueDto.ParentIssueId);
                 issue.Facility = await context.Facilities.FindAsync(issueDto.FacilityId) ?? throw new KeyNotFoundException("A megadott telephely nem található");

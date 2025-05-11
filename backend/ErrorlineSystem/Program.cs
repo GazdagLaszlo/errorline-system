@@ -98,6 +98,8 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseMiddleware<GlobalExceptionHandler>();
+
 app.MapControllers();
 
 app.UseCors();

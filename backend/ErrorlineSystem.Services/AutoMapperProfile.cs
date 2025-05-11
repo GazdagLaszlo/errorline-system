@@ -23,10 +23,10 @@ namespace ErrorlineSystem.Services
                 .ForPath(dest => dest.Role.Type, opt => opt.MapFrom(src => src.RoleType));
 
             CreateMap<Issue, IssueResponseDto>()
-                .ForMember(dest => dest.Username, opt => opt.MapFrom(src => src.AssignedUser != null ? src.AssignedUser.Name : "N/A"))
+                .ForPath(dest => dest.UserId, opt => opt.MapFrom(src => src.AssignedUser.Id))
                 .ForMember(dest => dest.ModifierUserName, opt => opt.MapFrom(src => src.ModifiedBy != null ? src.ModifiedBy.Name : "N/A"))
                 .ForMember(dest => dest.ParentIssueId, opt => opt.MapFrom(src => src.ParentIssue.Id))
-                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State.ToString()))
+                .ForMember(dest => dest.State, opt => opt.MapFrom(src => src.State))
                 .ReverseMap();
 
 

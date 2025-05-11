@@ -15,7 +15,7 @@ public class UserController(IUserService userService) : ControllerBase
     private int UserId => int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
     
     [HttpGet]
-    [Authorize(Roles = "Administrator")]
+    [Authorize/*(Roles = "Administrator")*/]
     [ProducesResponseType<IEnumerable<UserDto>>(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAllUsers()
     {

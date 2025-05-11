@@ -12,12 +12,14 @@ public interface IEquipmentOrderService
     Task<EquipmentOrderResponseDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto);
     Task<EquipmentOrderResponseDto> TrackOrderAsync(int orderId);
     Task<IList<EquipmentOrderResponseDto>> GetAllOrdersAsync();
+    Task<IList<EquipmentOrderResponseDto>> GetOrdersByIssueIdAsync(int issueId);
+
 }
 
 public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEquipmentOrderService
 {
     public async Task<EquipmentOrderResponseDto> CreateOrderAsync(EquipmentOrderCreateDto equipmentOrderCreateDto)
-    {             
+    {
         var issue = await context.Issues.FindAsync(equipmentOrderCreateDto.IssueId);
         if (issue == null)
         {
@@ -38,7 +40,7 @@ public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEqui
 
         return mapper.Map<EquipmentOrderResponseDto>(order);
     }
-    
+
     public async Task<EquipmentOrderResponseDto> TrackOrderAsync(int orderId)
     {
         var order = await context.EquipmentOrders
@@ -58,11 +60,22 @@ public class EquipmentOrderService(AppDbContext context, IMapper mapper) : IEqui
     public async Task<IList<EquipmentOrderResponseDto>> GetAllOrdersAsync()
     {
         var orders = await context.EquipmentOrders
-            .Include(x=>x.Issue)
+            .Include(x => x.Issue)
             .Include(x => x.Equipment)
             .ToListAsync();
 
         return mapper.Map<IList<EquipmentOrderResponseDto>>(orders);
     }
 
+    public async Task<IList<EquipmentOrderResponseDto>> GetOrdersByIssueIdAsync(int issueId)
+    {
+        var orders = await context.EquipmentOrders
+            .Include(x => x.Issue)
+            .Include(x => x.Equipment)
+            .Where(x => x.Issue.Id == issueId)
+            .ToListAsync();
+
+        return mapper.Map<IList<EquipmentOrderResponseDto>>(orders);
+
+    }
 }
