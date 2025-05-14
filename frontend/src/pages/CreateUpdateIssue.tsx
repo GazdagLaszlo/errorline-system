@@ -191,7 +191,7 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
                     label="Hozzárendelt felhasználó"
                     key={form.key('userId')}
 
-                    disabled={role !== "Administrator"}
+                    disabled={role !== "Administrator" && role !== "MaintenanceManager"}
                     {...form.getInputProps('userId')}
                     data={users?.map(user => ({
                         value: user.id?.toString() ?? '',
