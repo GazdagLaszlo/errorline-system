@@ -18,7 +18,7 @@ const useAuth = () => {
             localStorage.setItem(roleKeyName, role);
             setEmail(email);
             localStorage.setItem(emailKeyName, email);
-        });
+        }).catch(reason => alert(reason.response.data.error));
     }
 
     const register = (name: string, email: string, password: string, roleType: number) => {

@@ -30,7 +30,7 @@ type FormValues = {
     item: string;
     state: string | null;
     parentIssueId: string | null;
-    userId: string | null;
+    userId: string | null | undefined;
     modifierUserName: string | null;
     equipments: number[] | null; // vagy number[] | null, ha teljesen üres is lehet
     equipmentOrders: number[] | null;
@@ -42,15 +42,15 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
         mode: 'uncontrolled',
         initialValues: {
             description: "",
-            issueTypeId: null,
+            issueTypeId: "1",
             item: "",
-            state: null,
+            state: "Open",
             parentIssueId: null,
             userId: null,
             modifierUserName: null,
             equipments: [],
             equipmentOrders: [],
-            facilityId: null
+            facilityId: "1",
         },
 
         validate: {
@@ -85,9 +85,9 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
                     description: res.data.description,
                     issueTypeId: res.data.issueType?.id?.toString() ?? "1",
                     item: res.data.item ?? "",
-                    state: res.data.state?.toString() ?? "0",
+                    state: res.data.state?.toString() ?? "Open",
                     parentIssueId: null,
-                    userId: res.data.userId?.toString() ?? "1",
+                    userId: res.data.userId?.toString(),
                     modifierUserName: null,
                     equipments: (res.data.equipments ?? []).map(e => e.id!),
                     equipmentOrders: (res.data.equipmentOrders ?? []).map(o => o.id!),
@@ -97,6 +97,17 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
         }
     }, [id, isCreate]);
 
+    const states: {
+        [key: string]: string,
+    } = {
+        Open: 'Nyitott',
+        Blocked: 'Blokkolt',
+        InProgress: 'Folyamatban',
+        Fixed: 'Javítva',
+        Verified: 'Visszajelezve',
+        Closed: 'Zárt',
+    };
+
     const handleSubmit = (values: typeof form.values) => {
         if (isCreate) {
 
@@ -104,29 +115,49 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
                     description: values.description!,
                     issueTypeId: Number(values.issueTypeId),
                     item: values.item!,
-                    state: Number(values.state),
+                    state: values.state,
                     parentIssueId: values.parentIssueId ? Number(values.parentIssueId) : null,
                     equipments: values.equipments!,
                     equipmentOrders: values.equipmentOrders!,
                     facilityId: Number(values.facilityId)
                 };
 
-                api.Issue.apiIssueCreateIssuePost( createDto ).then(() => alert("Felvétel sikeres!"));
+                api.Issue.apiIssueCreateIssuePost( createDto ).then(() => alert("Felvétel sikeres!"))
+                    .catch(reason => {
+
+                        if (reason?.response?.data?.errors?.Description) {
+                            alert(reason?.response?.data?.errors?.Description.join(', '));
+                        }
+                        
+                        if (reason?.response?.data?.error) {
+                            alert(reason.response.data.error);
+                        }
+                    });
         } else {
 
                     const updateDto = {
                         description: values.description!,
                         issueTypeId: Number(values.issueTypeId),
                         item: values.item!,
-                        state: Number(values.state),
+                        state: values.state,
                         parentIssueId: values.parentIssueId ? Number(values.parentIssueId) : null,
-                        userId: Number(values.userId),
+                        userId: values.userId ? Number(values.userId) : null,
                         equipments: values.equipments!,
                         equipmentOrders: values.equipmentOrders!,
                         facilityId: Number(values.facilityId)
                     };
 
-                    api.Issue.apiIssueModifyIssueIdPut(parseInt(id!), updateDto ).then(() => alert("Módosítás sikeres!"));
+                    api.Issue.apiIssueModifyIssueIdPut(parseInt(id!), updateDto ).then(() => alert("Módosítás sikeres!"))
+                        .catch(reason => {
+
+                            if (reason?.response?.data?.errors?.Description) {
+                                alert(reason?.response?.data?.errors?.Description.join(', '));
+                            }
+
+                            if (reason?.response?.data?.error) {
+                                alert(reason.response.data.error);
+                            }
+                        });
         }
     };
 
@@ -167,15 +198,13 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
                     label="Státusz"
                     description="Válaszd ki a hiba státuszát"
                     key={form.key('state')}
+
+                    disabled={role !== "Administrator" && role !== "MaintenanceManager" && role !== "MaintenanceWorker"}
                     {...form.getInputProps('state')}
-                    data={[
-                        { value: '0', label: 'Nyitott' },
-                        { value: '1', label: 'Blokkolt' },
-                        { value: '2', label: 'Folyamatban' },
-                        { value: '3', label: 'Javítva' },
-                        { value: '4', label: 'Visszajelezve' },
-                        { value: '5', label: 'Zárt' },
-                    ]}
+                    data={Object.keys(states).map(state => ({
+                        value: state,
+                        label: states[state]
+                    }))}
                 />
 
                 <TextInput
@@ -193,10 +222,10 @@ const CreateUpdateIssue = ({ isCreate }: ICreateUpdateIssue) => {
 
                     disabled={role !== "Administrator" && role !== "MaintenanceManager"}
                     {...form.getInputProps('userId')}
-                    data={users?.map(user => ({
-                        value: user.id?.toString() ?? '',
-                        label: user.name ?? ''
-                    })) ?? []}
+                    data={(users ? [null, ...users] : [])?.map(user => ({
+                        value: user?.id?.toString() ?? '',
+                        label: user?.name ?? ''
+                    }))}
                 />
 
                 <TextInput

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ErrorlineSystem.DataContext.Dtos
@@ -35,7 +36,8 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// Az ügy aktuális státusza
         /// </summary>
-        public int State { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter<IssueState>))]
+        public IssueState State { get; set; }
 
         /// <summary>
         /// Korábbi feladatra való hivatkozás
@@ -88,7 +90,8 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// Az ügy aktuális státusza
         /// </summary>
-        public int State { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter<IssueState>))]
+        public IssueState State { get; set; }
 
         /// <summary>
         /// Korábbi feladatra való hivatkozás
@@ -155,7 +158,8 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// Az ügy aktuális státusza
         /// </summary>
-        public int State { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter<IssueState>))]
+        public IssueState State { get; set; }
 
         /// <summary>
         /// Korábbi feladatra való hivatkozás
@@ -214,6 +218,7 @@ namespace ErrorlineSystem.DataContext.Dtos
         /// <summary>
         /// Az ügy aktuális státusza
         /// </summary>
+        [JsonConverter(typeof(JsonStringEnumConverter<IssueState>))]
         public int State { get; set; }
 
         /// <summary>

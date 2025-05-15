@@ -1740,8 +1740,7 @@
             "nullable": true
           },
           "state": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/IssueState"
           },
           "parentIssueId": {
             "type": "integer",
@@ -1795,8 +1794,7 @@
             "nullable": true
           },
           "state": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/IssueState"
           },
           "parentIssueId": {
             "type": "integer",
@@ -1917,8 +1915,7 @@
             "nullable": true
           },
           "state": {
-            "type": "integer",
-            "format": "int32"
+            "$ref": "#/components/schemas/IssueState"
           },
           "parentIssueId": {
             "type": "integer",

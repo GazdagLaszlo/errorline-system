@@ -700,10 +700,10 @@ export interface IssueRequestDto {
     'item'?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {IssueState}
      * @memberof IssueRequestDto
      */
-    'state'?: number;
+    'state'?: IssueState;
     /**
      * 
      * @type {number}
@@ -729,6 +729,8 @@ export interface IssueRequestDto {
      */
     'facilityId'?: number;
 }
+
+
 /**
  * 
  * @export
@@ -761,10 +763,10 @@ export interface IssueResponseDto {
     'item'?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {IssueState}
      * @memberof IssueResponseDto
      */
-    'state'?: number;
+    'state'?: IssueState;
     /**
      * 
      * @type {number}
@@ -808,6 +810,8 @@ export interface IssueResponseDto {
      */
     'internalComment'?: Array<CommentDto> | null;
 }
+
+
 /**
  * 
  * @export
@@ -909,10 +913,10 @@ export interface IssueUpdateDto {
     'item'?: string | null;
     /**
      * 
-     * @type {number}
+     * @type {IssueState}
      * @memberof IssueUpdateDto
      */
-    'state'?: number;
+    'state'?: IssueState;
     /**
      * 
      * @type {number}
@@ -950,6 +954,8 @@ export interface IssueUpdateDto {
      */
     'facilityId'?: number;
 }
+
+
 /**
  * 
  * @export

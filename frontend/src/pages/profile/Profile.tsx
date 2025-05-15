@@ -37,6 +37,7 @@ const ShowProfile = () => {
             <form>
                 <TextInput
                     withAsterisk
+                    disabled={true}
                     label="Azonosító"
                     placeholder="Azonosító"
                     key={form.key('id')}
@@ -45,6 +46,7 @@ const ShowProfile = () => {
 
                 <TextInput
                     withAsterisk
+                    disabled={true}
                     label="Név"
                     placeholder="Név"
                     key={form.key('name')}
@@ -53,6 +55,7 @@ const ShowProfile = () => {
 
                 <TextInput
                     withAsterisk
+                    disabled={true}
                     label="Email"
                     placeholder="Email"
                     key={form.key('email')}
@@ -60,6 +63,7 @@ const ShowProfile = () => {
                 />
 
                 <NativeSelect
+                    disabled={true}
                     label="Szerepkör"
                     description="Szerepkör"
                     key={form.key('roleType')}

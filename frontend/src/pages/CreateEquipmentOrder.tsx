@@ -29,6 +29,7 @@ const EquipmentOrder = () => {
     const submit = () => {
         api.EquipmentOrder.apiEquipmentOrderCreateOrderPost({...form.values})
             .then(() => alert("Rendelés rögzítve!"))
+            .catch(reason => alert(reason));
     }
 
     useEffect(() => {
