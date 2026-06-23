@@ -72,6 +72,12 @@ yarn install
 yarn dev
 ```
 
+### Docker Compose
+
+```bash
+docker compose up --build
+```
+
 ---
 
 ## Bejelentkezés
